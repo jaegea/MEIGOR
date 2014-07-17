@@ -1,0 +1,14 @@
+Package: MEIGOR
+Type: Package
+Title: MEIGO - MEtaheuristics for bIoinformatics Global Optimization
+Version: 0.99.10
+Date: 2012-03-13
+Author: Jose Egea, David Henriques, Alexandre Fdez. Villaverde, Thomas
+        Cokelaer
+Maintainer: Jose Egea <josea.egea@upct.es>
+Depends: Rsolnp, snowfall, CNORode, deSolve
+Suggests: CellNOptR
+Description: Global Optimization
+License: GPL-3
+LazyLoad: yes
+biocViews: SystemsBiology
