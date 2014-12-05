@@ -77,6 +77,7 @@
 % gg
 <<preliminaries, eval=TRUE, include=FALSE, echo=FALSE >>=
 options(width=70, useFancyQuotes="UTF-8", prompt=" ", continue="  ")
+set.seed(123L)
 @
 
 \section{Introduction}
