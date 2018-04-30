@@ -1,7 +1,7 @@
 Package: MEIGOR
 Type: Package
 Title: MEIGO - MEtaheuristics for bIoinformatics Global Optimization
-Version: 1.14.0
+Version: 1.15.0
 Date: 2012-03-13
 Author: Jose Egea, David Henriques, Alexandre Fdez. Villaverde, Thomas
         Cokelaer
