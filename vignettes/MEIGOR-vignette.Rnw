@@ -110,8 +110,9 @@ Before starting this tutorial you need to install the package MEIGOR. You can in
 MEIGOR from Bioconductor by typing:
 
 <<installMEIGO2, eval=FALSE, pgf=TRUE, echo=TRUE>>=
-source("http://bioconductor.org/biocLite.R")
-biocLite("CellNOptR")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("CellNOptR")
 @
 
 	
