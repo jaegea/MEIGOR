@@ -1,0 +1,7 @@
+0.9.5:
+0.9.4:
+    o New functions: vns_default function, MEIGO, vns_optset, get_VNS_settings, rosen10
+	o Lots of clean-up in other functions with some new prototypes: e.g., CeSSR, rvnds_hamming, rvnds_local.R, ssm_localsolver.R
+
+0.99.3:
+0.99.2: add inst directory.
