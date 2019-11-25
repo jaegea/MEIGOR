@@ -5,8 +5,11 @@
 %\VignettePackage{MEIGOR}
 
 \documentclass{article}
+
 \usepackage{Sweave,fullpage}
+
 \usepackage{url, color}
+
 
 %\usepackage{cmap}
 
@@ -55,16 +58,18 @@
 	%ALEX, incomplete logos,
 	%ALEX, autthors list
 	
-	\author[3]{Jose A. Egea\thanks{josea.egea@upct.es}}
-	\author[1]{David Henriques}
-	\author[2]{Thomas Cokelaer}
+	\author[1]{Jose A. Egea\thanks{josea.egea@gmail.com}}
+	\author[2]{David Henriques}
+	\author[3]{Thomas Cokelaer}
 	\author[2]{Alejandro F. Villaverde}
 	\author[2]{Julio R. Banga \thanks{julio@iim.csic.es}}
-	\author[2]{Julio Saez-Rodriguez \thanks{saezrodriguez@ebi.ac.uk}}
+	\author[4]{Julio Saez-Rodriguez \thanks{julio.saez@bioquant.uni-heidelberg.de}}
 
-	\affil[1]{Instituto de Investigaciones Marinas-CSIC, Vigo, Spain}
-	\affil[2]{European Bioinformatics Institute, Saez-Rodriguez group, Cambridge, United Kingdom}
-	\affil[3]{Universidad Politécnica de Cartagena, Cartagena, Spain}
+	\affil[1]{Centro de Edafología y Biología Aplicada del Segura, Murcia, Spain}
+	\affil[2]{Instituto de Investigaciones Marinas-CSIC, Vigo, Spain}
+	\affil[3]{Institute Pasteur, Paris, France}
+	\affil[4]{Universität Heidelberg, Saez-Rodriguez group, Heidelberg, Germany}
+	
 
  
 \begin{document}
@@ -135,7 +140,7 @@ BiocManager::install("CellNOptR")
 	where $x$ is the vector of decision variables, and $x_L$ and $x_U$ its respective bounds. $p_1,\ldots,p_n$ are optional extra input parameters to be passed to the objective function (see examples in sections \ref{sec:use_param1}, \ref{sec:nl2sol_use}). $c_{eq}$ is a set of equality constraints. $c(x)$ is a set of inequality constraints with lower and upper bounds, $c_L$ and $c_U$. Finally, $f(x,p_1,p_2,...,p_n)$ is the objective function to be minimized.
 	
 \subsection{Quick start: How to carry out an optimization with \textit{eSSR}}
-<<load_package, eval=TRUE, pgf=TRUE, echo=FALSE,results=hide>>=
+<<load_package, eval=TRUE, pgf=TRUE, echo=FALSE,results='hide',warning=FALSE, message=FALSE>>=
 	library(MEIGOR)
 @
 
@@ -168,7 +173,7 @@ Regarding the objective function, the input parameter is the decision vector (wi
 	
 	with $k_1, k_2, k_3, k_4$ being extra parameters defined before calling the solver. The objective function for this problem would be:
 	
-<<quickProblemSolve, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=
+<<quickProblemSolve, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 ex3<-function(x,k1,k2,k3,k4){
 f=-x[4];
 #Equality constraints (declare them before the inequality ones) 
@@ -230,6 +235,7 @@ If the problem contains additional constraints and/or integer or binary variable
 			\item \textbf{log\_var}: Indexes of the variables which will be analyzed using a logarithmic distribution instead of an uniform one\footnote[3]{Useful when the bounds of a decision variables have different orders of magnitude and they are both positive.} (default: numeric(0)). See an example in Section \ref{sec:nl2sol_use}.
 		\item \textbf{tolc}: Maximum constraint violation allowed. This is also used as a tolerance for the local search (default: $10^{-5}$).
 		\item \textbf{prob\_bound}: Probability (0-1) of biasing the search towards the bounds. 0: Never bias to bounds; 1: Always bias to bounds (default: 0.5).
+		\item \textbf{save\_results}: Saves final results in \textbf{eSSR\_report.Rdata}. 0: deactivated; 1: activated (default: 1).
 		\item \textbf{inter\_save}: Saves results of intermediate iterations in \textbf{eSSR\_report.Rdata}. Useful for very long runs. 0: deactivated; 1: activated (default: 0).
 		\end{itemize}
 		
@@ -365,7 +371,7 @@ The list \textbf{opts} has only a few fields compared with \textit{essR}
 	
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-<<unConstrainedF, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=
+<<unConstrainedF, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 ex1 <- function(x){
 y<-4*x[1]*x[1]-2.1*x[1]^4+1/3*x[1]^6+x[1]*x[2]-4*x[2]*x[2]+4*x[2]^4;
 return(y)
@@ -385,7 +391,7 @@ return(y)
 	\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-<<unConstrainedSolve, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=
+<<unConstrainedSolve, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 #========================= 
 #PROBLEM SPECIFICATIONS
 # =========================
@@ -418,7 +424,7 @@ Results<-MEIGO(problem,opts,algorithm="ESS");
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-<<ex2F, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=
+<<ex2F, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 ex2<-function(x){
 F=-x[1]-x[2];
 g<-rep(0,2);
@@ -440,7 +446,7 @@ return(list(F=F,g=g))
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-<<ex2Solve, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=	
+<<ex2Solve, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 #========================= 
 #PROBLEM SPECIFICATIONS 
 #=========================
@@ -475,7 +481,7 @@ Results<-MEIGO(problem,opts,algorithm="ESS");
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-<<ex3f, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=	
+<<ex3f, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 ex3<-function(x,k1,k2,k3,k4){
 f=-x[4];
 #Equality constraints
@@ -506,7 +512,7 @@ f=-x[4];
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-<<ex2Solve3, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=	
+<<ex2Solve3, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 #========================= 
 #PROBLEM SPECIFICATIONS 
 #=========================
@@ -542,7 +548,7 @@ Results<-MEIGO(problem,opts,algorithm="ESS",k1,k2,k3,k4);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-<<ex4f, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=	
+<<ex4f, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 	ex4<-function(x){
 		F = x[2]^2 + x[3]^2 + 2.0*x[1]^2 + x[4]^2 - 5.0*x[2] - 5.0*x[3] - 21.0*x[1] + 7.0*x[4];
 		g<-rep(0,3);
@@ -566,7 +572,7 @@ Results<-MEIGO(problem,opts,algorithm="ESS",k1,k2,k3,k4);
 	\end{itemize}
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-<<ex4f, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=	
+<<ex4main, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 #========================= PROBLEM SPECIFICATIONS ===========================
 problem<-list(f="ex4", x_L=rep(0,4), x_U=rep(10,4), x_0=c(3,4,5,1),
 int_var=3, c_L=rep(-Inf,3), c_U=c(8,10,5))
@@ -576,117 +582,117 @@ Results<-MEIGO(problem,opts,algorithm="ESS");
 @
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-\subsubsection{Dynamic parameter estimation problem using \textit{NL2SOL}}
-	\label{sec:nl2sol_use}
-	
-	Here we will illustrate the use of \textit{eSSR} within \textit{MEIGO} using \textit{NL2SOL} as local solver. In particular, the problem considered is the isomerization of $\alpha$-pinene \cite{Rodriguez-Fernandez_et_al:06b}. 
-	
-	\begin{eqnarray*}
-	\min\limits_{p}J=\sum_{j=1}^5 \sum_{i=1}^8 (y_j(p,t_i)-\tilde{y}_{ji})^2
-	\end{eqnarray*}
-	
-	\noindent subject to the system dynamics
-	\begin{eqnarray*}
-	\frac{dy_1}{dt} & = & -(p_1+p_2) y_1 \\
-	\frac{dy_2}{dt} & = & p_1 y_1 \\
-	\frac{dy_3}{dt} & = & p_2 y_1 - (p_3+p_4) y_3 + p_5 y_5 \\
-	\frac{dy_4}{dt} & = & p_3 y_3 \\
-	\frac{dy_5}{dt} & = & p_4 y_3 - p_5 y_5
-	\end{eqnarray*}
-	
-	\noindent and subject to parameter bounds
-	\begin{eqnarray*}
-	0 \leq x_i \leq 1 \quad \forall i \in [1,\ldots, 5]
-	\end{eqnarray*}
-	
-	In order to use \textit{NL2SOL} as local solver, in the script \texttt{ex5.R} there must be three output arguments: apart from the objective function and the constraints (empty in this case), a vector $R$ containing the squares of the residuals must be defined.
-	Please note that the library \textit{deSolve} must be loaded in order to use the ODE integrator \textit{lsodes}.
-	
-<<ex5f, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=	
-	ex5<-function(x,texp,yexp){
-		yini<-c(100, 0, 0, 0 ,0);
-		times<-texp;
-		out   <- lsodes(yini, times, ex5_dynamics, parms = x)
-		
-		tout<-out[,1];
-		yout<-out[,-1];
-		J <- sum((yout-yexp)^2);
-		g<-0;
-		residuals<-(yout-yexp);
-	
-		return(list(J,g,residuals))
-	}
-	#***************************************************
-	#Function of the dynamic system
-	ex5_dynamics<-function(t,y,p){
-	  dy<-rep(0,5)
-	  
-	  dy[1]<--(p[1]+p[2])*y[1];
-	  dy[2]<-p[1]*y[1];
-	  dy[3]<-p[2]*y[1]-(p[3]+p[4])*y[3]+p[5]*y[5];
-	  dy[4]<-p[3]*y[3];
-	  dy[5]<-p[4]*y[3]-p[5]*y[5];
-	  return(list(dy))
-	}
-	#***************************************************
-@
-	
-	
-	\noindent The solver is called in \texttt{main\_ex5.R}. The global optimum for this problem is located in $\mathbf{p^*}=[5.93\cdot 10^{-5}, 2.96\cdot 10^{-5}, 2.0\cdot 10^{-5}, 2.75\cdot 10^{-4}, 4.00\cdot 10^{-5}]$, with $f(\mathbf{p^*})=19.88$.
-	
-	\noindent Options set:
-	\begin{itemize}
-	\item An initial point is specified.
-	\item Maximum number of evaluations is 1000.
-	\item All the variables are declared as \textit{log\_var}.
-	\item We choose the \textit{NL2SOL} local solver.
-	\item Save results in a file after every iteration.
-	\end{itemize}
-	
-	
-<<ex5Solve, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=	
-	#=======================
-	#PROBLEM SPECIFICATIONS 
-	#=======================
-	problem<-list(f="ex5", x_L=rep(0.01,5), x_U=rep(1,5), x_0=rep(0.1,5))
-	opts<-list(maxeval=1000, log_var=1:5, 
-	local_solver='NL2SOL', inter_save=1)
-	#======================== 
-	#END OF PROBLEM SPECIFICATIONS
-	#=======================
-#time intervals
-	
-texp<-c(0, 1230, 3060, 4920, 7800, 
-	10680, 15030, 22620, 36420)
-	 
-#Distribution of species concentration
-#	     y(1)    y(2)    y(3)    y(4)    y(5)
-	 
-yexp<-rbind(c(100.0, 0.0, 0.0, 0.0, 0.0),
-	c(88.35, 7.3, 2.3, 0.4, 1.75),
-	c( 76.4  , 15.6,    4.5 ,   0.7 ,   2.8),
-	c(65.1 ,   23.1  ,   5.3 ,    1.1 ,    5.8),
-	c(50.4  ,  32.9   ,  6.0   ,  1.5   ,  9.3),
-	c(37.5  ,  42.7 ,    6.0 ,    1.9  ,  12.0),
-	c(25.9  ,  49.1  ,   5.9  ,   2.2 ,   17.0),
-	c( 14.0  ,  57.4    , 5.1  ,   2.6   , 21.0),
-	c(4.5 ,   63.1  ,   3.8   ,  2.9  ,  25.7));
-	  
-	Results<-MEIGO(problem,opts,algorithm="ESS",texp,yexp);
-@
+% \subsubsection{Dynamic parameter estimation problem using \textit{NL2SOL}}
+% 	\label{sec:nl2sol_use}
+% 	
+% 	Here we will illustrate the use of \textit{eSSR} within \textit{MEIGO} using \textit{NL2SOL} as local solver. In particular, the problem considered is the isomerization of $\alpha$-pinene \cite{Rodriguez-Fernandez_et_al:06b}. 
+% 	
+% 	\begin{eqnarray*}
+% 	\min\limits_{p}J=\sum_{j=1}^5 \sum_{i=1}^8 (y_j(p,t_i)-\tilde{y}_{ji})^2
+% 	\end{eqnarray*}
+% 	
+% 	\noindent subject to the system dynamics
+% 	\begin{eqnarray*}
+% 	\frac{dy_1}{dt} & = & -(p_1+p_2) y_1 \\
+% 	\frac{dy_2}{dt} & = & p_1 y_1 \\
+% 	\frac{dy_3}{dt} & = & p_2 y_1 - (p_3+p_4) y_3 + p_5 y_5 \\
+% 	\frac{dy_4}{dt} & = & p_3 y_3 \\
+% 	\frac{dy_5}{dt} & = & p_4 y_3 - p_5 y_5
+% 	\end{eqnarray*}
+% 	
+% 	\noindent and subject to parameter bounds
+% 	\begin{eqnarray*}
+% 	0 \leq x_i \leq 1 \quad \forall i \in [1,\ldots, 5]
+% 	\end{eqnarray*}
+% 	
+% 	In order to use \textit{NL2SOL} as local solver, in the script \texttt{ex5.R} there must be three output arguments: apart from the objective function and the constraints (empty in this case), a vector $R$ containing the squares of the residuals must be defined.
+% 	Please note that the library \textit{deSolve} must be loaded in order to use the ODE integrator \textit{lsodes}.
+% 	
+% <<ex5f, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
+% 	ex5<-function(x,texp,yexp){
+% 		yini<-c(100, 0, 0, 0 ,0);
+% 		times<-texp;
+% 		out   <- lsodes(yini, times, ex5_dynamics, parms = x)
+% 		
+% 		tout<-out[,1];
+% 		yout<-out[,-1];
+% 		J <- sum((yout-yexp)^2);
+% 		g<-0;
+% 		residuals<-(yout-yexp);
+% 	
+% 		return(list(J,g,residuals))
+% 	}
+% 	#***************************************************
+% 	#Function of the dynamic system
+% 	ex5_dynamics<-function(t,y,p){
+% 	  dy<-rep(0,5)
+% 	  
+% 	  dy[1]<--(p[1]+p[2])*y[1];
+% 	  dy[2]<-p[1]*y[1];
+% 	  dy[3]<-p[2]*y[1]-(p[3]+p[4])*y[3]+p[5]*y[5];
+% 	  dy[4]<-p[3]*y[3];
+% 	  dy[5]<-p[4]*y[3]-p[5]*y[5];
+% 	  return(list(dy))
+% 	}
+% 	#***************************************************
+% @
+% 	
+% 	
+% 	\noindent The solver is called in \texttt{main\_ex5.R}. The global optimum for this problem is located in $\mathbf{p^*}=[5.93\cdot 10^{-5}, 2.96\cdot 10^{-5}, 2.0\cdot 10^{-5}, 2.75\cdot 10^{-4}, 4.00\cdot 10^{-5}]$, with $f(\mathbf{p^*})=19.88$.
+% 	
+% 	\noindent Options set:
+% 	\begin{itemize}
+% 	\item An initial point is specified.
+% 	\item Maximum number of evaluations is 1000.
+% 	\item All the variables are declared as \textit{log\_var}.
+% 	\item We choose the \textit{NL2SOL} local solver.
+% 	\item Save results in a file after every iteration.
+% 	\end{itemize}
+% 	
+% 	
+% <<ex5Solve, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
+% 	#=======================
+% 	#PROBLEM SPECIFICATIONS 
+% 	#=======================
+% 	problem<-list(f="ex5", x_L=rep(0.01,5), x_U=rep(1,5), x_0=rep(0.1,5))
+% 	opts<-list(maxeval=1000, log_var=1:5, 
+% 	local_solver='NL2SOL', inter_save=1)
+% 	#======================== 
+% 	#END OF PROBLEM SPECIFICATIONS
+% 	#=======================
+% #time intervals
+% 	
+% texp<-c(0, 1230, 3060, 4920, 7800, 
+% 	10680, 15030, 22620, 36420)
+% 	 
+% #Distribution of species concentration
+% #	     y(1)    y(2)    y(3)    y(4)    y(5)
+% 	 
+% yexp<-rbind(c(100.0, 0.0, 0.0, 0.0, 0.0),
+% 	c(88.35, 7.3, 2.3, 0.4, 1.75),
+% 	c( 76.4  , 15.6,    4.5 ,   0.7 ,   2.8),
+% 	c(65.1 ,   23.1  ,   5.3 ,    1.1 ,    5.8),
+% 	c(50.4  ,  32.9   ,  6.0   ,  1.5   ,  9.3),
+% 	c(37.5  ,  42.7 ,    6.0 ,    1.9  ,  12.0),
+% 	c(25.9  ,  49.1  ,   5.9  ,   2.2 ,   17.0),
+% 	c( 14.0  ,  57.4    , 5.1  ,   2.6   , 21.0),
+% 	c(4.5 ,   63.1  ,   3.8   ,  2.9  ,  25.7));
+% 	  
+% 	Results<-MEIGO(problem,opts,algorithm="ESS",texp,yexp);
+% @
 	
 \subsubsection{\textit{essR\_multistart} application}
 An application of \textit{essR\_multistart} within \textit{MEIGO} on the problem \textit{ex3} using \textit{solnp} 
-as local solver is presented in the script \texttt{main\_multistart\_ex3.R}. The number of initial points chosen is 2.
+as local solver is presented in the script \texttt{main\_multistart\_ex3.R}. The number of initial points chosen is 10.
 	
 	
-<<ex3solve, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=	
+<<ex3solve, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 #========================= 
 #PROBLEM SPECIFICATIONS 
 #=========================
 problem<-list(f="ex3",x_L=rep(0,6),x_U=c(rep(1,4),16,16),
  neq=4, c_L=-Inf, c_U=4)
-opts<-list(ndiverse=2, local_solver='SOLNP', local_tol=3)
+opts<-list(ndiverse=10, local_solver='SOLNP', local_tol=3)
 #========================= 
 #END OF PROBLEM SPECIFICATIONS 
 #=========================
@@ -799,7 +805,7 @@ Results<-MEIGO(problem,opts,algorithm="multistart",k1,k2,k3,k4);
 	To illustrate the use of \textit{VNSR} we choose the 10 dimensional Rosenbrock function with integer decision variables as an example.
 	The code of the Rosenbrock function is available inside the installation directory of the \textit{MEIGO} package, under the benchmarks folder. Source the objective function and assign it to the problem list.
 				
-<<sourceRosen10, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=
+<<sourceRosen10, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 rosen10<-function(x){
 		f<-0;
 		n=length(x);
@@ -814,24 +820,24 @@ rosen10<-function(x){
 @
 	
 Define the problem settings:
-<<rosen10settings, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=
+<<rosen10settings, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 problem<-list(f="rosen10", x_L=rep(-5,nvar), x_U=rep(1,nvar))
 
 @
 	
 Define the algorithm to be used:
-<<algVNS, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=
+<<algVNS, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 algorithm="VNS";
 @
 	
 Define the options for \textit{VNSR}:
-<<vnsOPts, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=
+<<vnsOPts, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 opts<-list(maxeval=2000, maxtime=3600*69, use_local=1,
 	 aggr=0, local_search_type=1, decomp=1, maxdist=0.5)
 @
 	
 Call MEIGO:
-<<vnsCallMEIGO, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=
+<<vnsCallMEIGO, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 			Results<-MEIGO(problem,opts,algorithm);
 @			
 	
@@ -928,7 +934,7 @@ The field \textit{n+1} should be named hosts. opts\$hosts should be a vector con
 	To illustrate the use of \textit{CeSSR} we choose the D/2m-group Shifted and m-rotated Rastrigin's function (f10) from the LSGO benchmarks \cite{Tang_et_al:12} as an example.
 			The code of f10 is available inside the installation directory of the \textit{MEIGO} package, under the benchmarks folder. Source the objective function and assign it to the problem list, defining the bounds for the decision variables:
 				
-<<ceSSexample, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=
+<<ceSSexample, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide', warning=FALSE, message=FALSE>>=
 
 rosen10<-function(x){
 	f<-0;
@@ -1014,7 +1020,7 @@ Results<-MEIGO(problem,opts,algorithm="CeSSR")
 	
 Next we show an example function that illustrates how to configure the list of options used by \textit{CeVNSR}. This example calls two cpu's of our local machine to solve the integer Rosenbrock problem. It can be found in the script \texttt{main\_CeVNSR\_example.R} in the benchmarks folder.
 	
-<<ceVNSexample, eval=TRUE, pgf=TRUE, echo=TRUE,results=hide>>=
+<<ceVNSexample, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide', warning=FALSE, message=FALSE>>=
 rosen10<-function(x){
 		f<-0;
 		n=length(x);
@@ -1069,7 +1075,7 @@ the objective is to minimize the squared difference between the model prediction
 
 In this example, we start by loading the package and the necessary model and experimental data:
 
-<<label=CNORodeExample_fig, eval=FALSE, echo=TRUE,results=hide>>=
+<<label=CNORodeExample_fig, eval=FALSE, echo=TRUE,results='hide'>>=
 library(MEIGOR);
 library(CNORode);
 data("CNORodeExample",package="MEIGOR");	
@@ -1079,7 +1085,7 @@ plotCNOlist(cnolist);
 \begin{figure}[h!]
 \begin{center}
 
-<<label=CNORodeExample_fig_plot,include=TRUE,fig=TRUE,echo=FALSE,results=hide>>=
+<<label=CNORodeExample_fig_plot,include=TRUE,echo=FALSE,results='hide'>>=
 library(MEIGOR);
 library(CNORode);
 data("CNORodeExample",package="MEIGOR");	
@@ -1102,14 +1108,14 @@ the plot of the experimental data.
 In order to visualize the logic model we can use the CellNOptR package 
 (see figure ~\ref{fig:CNORode_plot_model})
 
-<<label=CNORodeExample_fig_model, eval=FALSE, pgf=TRUE, echo=TRUE,results=hide>>=
+<<label=CNORodeExample_fig_model, eval=FALSE, pgf=TRUE, echo=TRUE,results='hide'>>=
 plotModel(model, cnolist);
 @
 
 \begin{figure}[h!]
 \begin{center}
 
-<<label=CNORodeExample_fig_model_plot,include=TRUE,fig=TRUE,echo=FALSE,results=hide>>=
+<<label=CNORodeExample_fig_model_plot,include=TRUE,echo=FALSE,results='hide'>>=
 plotModel(model, cnolist);
 @
 
@@ -1131,7 +1137,7 @@ we can use the \textit{createLBodeContPars} function. Here we set the option
 for our problem and plot the simulation results against the experimental data 
 (see figure ~\ref{fig:CNORodeExample_initial_plot}).  
 
-<<label=CNORodeExample_initial, eval=FALSE, pgf=FALSE, echo=TRUE,results=hide>>=
+<<label=CNORodeExample_initial, eval=FALSE, pgf=FALSE, echo=TRUE,results='hide'>>=
 
 initial_pars=createLBodeContPars(model, LB_n = 1, LB_k = 0.09,
 	LB_tau = 0.1, UB_n = 5, UB_k = 0.95, UB_tau = 10, random = TRUE);
@@ -1144,7 +1150,7 @@ simData=plotLBodeFitness(cnolist, model,initial_pars,
 \begin{figure}[h!]
 \begin{center}
 
-<<label=CNORodeExample_initial_plot,include=TRUE,fig=TRUE,echo=FALSE,results=hide>>=
+<<label=CNORodeExample_initial_plot,include=TRUE,echo=FALSE,results='hide'>>=
 
 initial_pars=createLBodeContPars(model, LB_n = 1, LB_k = 0.09,
 	LB_tau = 0.1, UB_n = 5, UB_k = 0.95, UB_tau = 10, random = TRUE);
@@ -1167,7 +1173,7 @@ The CNORode packages allows the generation of an objective function that can be 
 by optimization solvers. Basically this function computes the squared 
 difference between the experimental data and the simulation results:
 
-<<label=CNORodeExample_optimize, eval=TRUE,echo=TRUE,results=hide>>=
+<<label=CNORodeExample_optimize, eval=TRUE,echo=TRUE,results='hide'>>=
 f_hepato<-getLBodeContObjFunction(cnolist, model, initial_pars, indices=NULL,
  time = 1, verbose = 0, transfer_function = 3, reltol = 1e-04, atol = 1e-03, 
 maxStepSize =Inf, maxNumSteps = 1e4, maxErrTestsFails = 50, nan_fac = 5)
@@ -1177,7 +1183,7 @@ In eSSR an optimization problem is defined by a list that should contain
 at least the objective function and the upper and lower bound of the variables
 under study:
 
-<<label=CNORodeExample_define_prob, eval=TRUE,echo=TRUE,results=hide>>=
+<<label=CNORodeExample_define_prob, eval=TRUE,echo=TRUE,results='hide'>>=
 n_pars=length(initial_pars$LB);
 problem<-list(f=f_hepato, x_L=initial_pars$LB[initial_pars$index_opt_pars],
 	x_U=initial_pars$UB[initial_pars$index_opt_pars],x_0=initial_pars$LB[initial_pars$index_opt_pars]);
@@ -1189,13 +1195,13 @@ to solve this problem and are chosen such that the examples can be executed
 quickly. To improve the performance raise $maxeval$, $ndiverse$ and $dim\_refset$
 and use a local solver (\textit{e.g.} DHC):
 
-<<label=CNORodeExample_define_opts, eval=TRUE,echo=TRUE,results=hide>>=
+<<label=CNORodeExample_define_opts, eval=TRUE,echo=TRUE,results='hide'>>=
 opts<-list(maxeval=100, local_solver=0,ndiverse=10,dim_refset=6);	
 @
 
 To start the optimization procedure call MEIGO:
 
-<<label=CNORodeExample_2, eval=TRUE,echo=TRUE,results=hide>>=
+<<label=CNORodeExample_2, eval=TRUE,echo=TRUE,results='hide'>>=
 Results<-MEIGO(problem,opts,algorithm="ESS")
 @
 
@@ -1204,7 +1210,7 @@ Results<-MEIGO(problem,opts,algorithm="ESS")
 After the optimization we can use the obtained results to plot and plot the model fitness
 with CNORode (see figure ~\ref{fig:CNORodeExample_opt_plot}):
 
-<<label=CNORodeExample_opt, eval=FALSE, pgf=FALSE,echo=TRUE,results=hide>>=
+<<label=CNORodeExample_opt, eval=FALSE, pgf=FALSE,echo=TRUE,results='hide'>>=
 opt_pars=initial_pars;
 opt_pars$parValues=Results$xbest;
 simData=plotLBodeFitness(cnolist, model,opt_pars,
@@ -1215,7 +1221,7 @@ simData=plotLBodeFitness(cnolist, model,opt_pars,
 \begin{figure}[h!]
 \begin{center}
 
-<<label=CNORodeExample_opt_plot,include=TRUE,fig=TRUE,echo=FALSE,results=hide>>=
+<<label=CNORodeExample_opt_plot,include=TRUE,echo=FALSE,results='hide'>>=
 opt_pars=initial_pars;
 opt_pars$parValues=Results$xbest;
 simData=plotLBodeFitness(cnolist, model,opt_pars,	
@@ -1254,7 +1260,7 @@ conditions of upstream network stimuli (typically ligands) and downstream inhibi
 (typically small molecule inhibitiors). Also, CellNOptR is used to visualize such data
 (see figure ~\ref{fig:CellNOptR_example_cnolist}):
 
-<<label=CellNOptR_example_cnolist_fig, eval=FALSE, pgf=TRUE, echo=TRUE, results=hide>>=
+<<label=CellNOptR_example_cnolist_fig, eval=FALSE, pgf=TRUE, echo=TRUE, results='hide'>>=
 library(MEIGOR);
 library(CellNOptR);
 data("CellNOptR_example",package="MEIGOR");	
@@ -1265,7 +1271,7 @@ plotCNOlist(cnolist)
 \begin{figure}[h!]
 \begin{center}
 
-<<label=CellNOptR_example_cnolist,include=TRUE,fig=TRUE,echo=FALSE,results=hide>>=
+<<label=CellNOptR_example_cnolist,include=TRUE,echo=FALSE,results='hide'>>=
 library(MEIGOR);
 library(CellNOptR);
 data("CellNOptR_example",package="MEIGOR");	
@@ -1289,7 +1295,7 @@ The original prior-knowledge network (a signed directed graph) can be expanded i
 hypergraph containing all possible Boolean gates. CellNOptR can then be used to 
 visualize the obtained network (see figure ~\ref{fig:CNORode_plot_model}).
 
-<<label=CellNOptR_example_fig_model, eval=FALSE, pgf=TRUE, echo=TRUE,results=hide>>=
+<<label=CellNOptR_example_fig_model, eval=FALSE, pgf=TRUE, echo=TRUE,results='hide'>>=
 model <- preprocessing(cnolist, model,
 	 expansion=TRUE, compression=TRUE, verbose=FALSE);
 plotModel(model, cnolist);
@@ -1298,7 +1304,7 @@ plotModel(model, cnolist);
 \begin{figure}[h!]
 \begin{center}
 
-<<label=CellNOptR_example_fig_model_plot,include=TRUE,fig=TRUE,echo=FALSE,results=hide>>=
+<<label=CellNOptR_example_fig_model_plot,include=TRUE,echo=FALSE,results='hide'>>=
 model <- preprocessing(cnolist, model, expansion=TRUE, compression=TRUE, verbose=FALSE);
 plotModel(model, cnolist);
 @
@@ -1319,7 +1325,7 @@ an objective function that can be used by VNS. In order to compute the fitness o
 model we will need to perform a simulation and compute the model fitness. Again, CellNOptR
 automates most of this process and thus our objective function can be defined as follows:
 
-<<label=CellNOptR_prep_fig_model, eval=TRUE, pgf=TRUE, echo=TRUE, results=hide>>=
+<<label=CellNOptR_prep_fig_model, eval=TRUE, pgf=TRUE, echo=TRUE, results='hide'>>=
 
 get_fobj<- function(cnolist,model){
 
@@ -1339,7 +1345,7 @@ fobj=get_fobj(cnolist,model)
 After defining the objective function we need to define the optimization problem
 and the options for the solver:
 
-<<label=CellNOptR_prep_3, eval=TRUE, pgf=TRUE, echo=TRUE, results=hide>>=
+<<label=CellNOptR_prep_3, eval=TRUE, pgf=TRUE, echo=TRUE, results='hide'>>=
 
 nvar=16;
 
@@ -1351,7 +1357,7 @@ opts<-list(maxeval=2000, maxtime=30, use_local=1,
 
 Finally we call MEIGO using the VNS algorithm in order to solve the problem:
 
-<<label=CellNOptR_4, eval=TRUE, pgf=TRUE, echo=TRUE, results=hide>>=
+<<label=CellNOptR_4, eval=TRUE, pgf=TRUE, echo=TRUE, results='hide'>>=
 Results<-MEIGO(problem,opts,"VNS")
 @
 
@@ -1360,7 +1366,7 @@ Results<-MEIGO(problem,opts,"VNS")
 Once the optimization procedure is finished we plot the obtained solution
 (see figure ~\ref{fig:CellNOptR_example_plot_model_solution}):
 
-<<label=CellNOptR_example_plot_optModel,echo=TRUE,eval=FALSE,results=hide>>=
+<<label=CellNOptR_example_plot_optModel,echo=TRUE,eval=FALSE,results='hide'>>=
 optModel=cutModel(model,Results$xbest);
 plotModel(optModel,cnolist);
 @
@@ -1368,7 +1374,7 @@ plotModel(optModel,cnolist);
 \begin{figure}[h!]
 \begin{center}
 
-<<label=CellNOptR_example_plot_optModel_fig,include=TRUE,fig=TRUE,echo=FALSE,results=hide>>=
+<<label=CellNOptR_example_plot_optModel_fig,include=TRUE,echo=FALSE,results='hide'>>=
 optModel=cutModel(model,Results$xbest);
 plotModel(optModel,cnolist);
 @

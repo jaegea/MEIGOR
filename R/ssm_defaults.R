@@ -10,6 +10,7 @@ function(...){
 	weight                    <-       1e6;             #Weight that multiplies the penalty term added to the objective function in constrained problems
 	tolc                      <-       1e-5;            #Maximum absolute violation of the constraints
 	prob_bound                <-       0.5;             #Probability of biasing the search towards the bounds
+	save_results              <-       1;               #Saves final results in the file eSSR_report.RData
 	inter_save                <-       0;               #Saves results in a report in intermediate iterations
 	
 	
