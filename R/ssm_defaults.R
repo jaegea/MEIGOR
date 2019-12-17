@@ -10,7 +10,7 @@ function(...){
 	weight                    <-       1e6;             #Weight that multiplies the penalty term added to the objective function in constrained problems
 	tolc                      <-       1e-5;            #Maximum absolute violation of the constraints
 	prob_bound                <-       0.5;             #Probability of biasing the search towards the bounds
-	save_results              <-       1;               #Saves final results in the file eSSR_report.RData
+	save_results              <-       0;               #Saves final results in the file eSSR_report.RData
 	inter_save                <-       0;               #Saves results in a report in intermediate iterations
 	
 	
@@ -33,7 +33,7 @@ function(...){
 
 
 	return(list(log_var=log_var,maxeval=maxeval,maxtime=maxtime,iterprint=iterprint,
-				plot=plot,weight=weight,tolc=tolc,prob_bound=prob_bound,
+				plot=plot,weight=weight,tolc=tolc,prob_bound=prob_bound,save_results=save_results,
 				inter_save=inter_save,dim_refset=dim_refset,ndiverse=ndiverse, combination=combination,
 				local_solver=local_solver,local_tol=local_tol,local_iterprint=local_iterprint,
 				local_n1=local_n1,local_n2=local_n2,local_balance=local_balance,
