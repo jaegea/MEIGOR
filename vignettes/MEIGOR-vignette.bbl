@@ -1,0 +1,819 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nty/global//global/global}
+  \entry{Belisle:92}{article}{}
+    \name{author}{1}{}{%
+      {{hash=BCJP}{%
+         family={Belisle},
+         familyi={B\bibinitperiod},
+         given={C.\bibnamedelima J.\bibnamedelima P.},
+         giveni={C\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim
+  P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BCJP1}
+    \strng{fullhash}{BCJP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{pages}{885\bibrangedash 895}
+    \field{title}{Convergence theorems for a class of simulated annealing
+  algorithms}
+    \field{volume}{29}
+    \field{journaltitle}{J. Applied Probability}
+    \field{year}{1992}
+  \endentry
+
+  \entry{Broyden:70}{article}{}
+    \name{author}{1}{}{%
+      {{hash=BC}{%
+         family={Broyden},
+         familyi={B\bibinitperiod},
+         given={C.G.},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BC1}
+    \strng{fullhash}{BC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{pages}{76\bibrangedash 90}
+    \field{title}{The convergence of a class of double-rank minimization
+  algorithms}
+    \field{volume}{6}
+    \field{journaltitle}{Journal of the Institute of Mathematics and Its
+  Applications}
+    \field{year}{1970}
+  \endentry
+
+  \entry{Byrd_et_al:95}{article}{}
+    \name{author}{4}{}{%
+      {{hash=BRH}{%
+         family={Byrd},
+         familyi={B\bibinitperiod},
+         given={R.\bibnamedelima H.},
+         giveni={R\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=LP}{%
+         family={Lu},
+         familyi={L\bibinitperiod},
+         given={P.},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=NJ}{%
+         family={Nocedal},
+         familyi={N\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=ZC}{%
+         family={Zhu},
+         familyi={Z\bibinitperiod},
+         given={C.},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BRH+1}
+    \strng{fullhash}{BRHLPNJZC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{pages}{1190\bibrangedash 1208}
+    \field{title}{A limited memory algorithm for bound constrained
+  optimization}
+    \field{volume}{16}
+    \field{journaltitle}{SIAM J. Scientific Computing}
+    \field{year}{1995}
+  \endentry
+
+  \entry{Dennis_et_al:81}{article}{}
+    \name{author}{3}{}{%
+      {{hash=DJE}{%
+         family={Dennis},
+         familyi={D\bibinitperiod},
+         given={J.\bibnamedelima E.},
+         giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=GDM}{%
+         family={Gay},
+         familyi={G\bibinitperiod},
+         given={D.\bibnamedelima M.},
+         giveni={D\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=WRE}{%
+         family={Welsch},
+         familyi={W\bibinitperiod},
+         given={R.\bibnamedelima E.},
+         giveni={R\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{DJEGDMWRE1}
+    \strng{fullhash}{DJEGDMWRE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{number}{3}
+    \field{pages}{348\bibrangedash 368}
+    \field{title}{An Adaptive Non-Linear Least-Squares Algorithm}
+    \field{volume}{7}
+    \field{journaltitle}{{ACM} Transactions on Mathematical Software}
+    \field{year}{1981}
+  \endentry
+
+  \entry{Egea_et_al:10}{article}{}
+    \name{author}{3}{}{%
+      {{hash=EJ}{%
+         family={Egea},
+         familyi={E\bibinitperiod},
+         given={J.A.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=MR}{%
+         family={Mart\'i},
+         familyi={M\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=BJ}{%
+         family={Banga},
+         familyi={B\bibinitperiod},
+         given={J.R.},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{EJMRBJ1}
+    \strng{fullhash}{EJMRBJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{number}{2}
+    \field{pages}{315\bibrangedash 324}
+    \field{title}{An evolutionary algorithm for complex process optimization}
+    \field{volume}{37}
+    \field{journaltitle}{Computers \& Operations Research}
+    \field{year}{2010}
+  \endentry
+
+  \entry{Egea_et_al:09}{article}{}
+    \name{author}{4}{}{%
+      {{hash=EJ}{%
+         family={Egea},
+         familyi={E\bibinitperiod},
+         given={J.A.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=BCE}{%
+         family={Balsa-Canto},
+         familyi={B\bibinithyphendelim C\bibinitperiod},
+         given={E.},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=GMS}{%
+         family={Garc\'ia},
+         familyi={G\bibinitperiod},
+         given={M.-S.G.},
+         giveni={M\bibinithyphendelim S\bibinitperiod},
+      }}%
+      {{hash=BJ}{%
+         family={Banga},
+         familyi={B\bibinitperiod},
+         given={J.R.},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{EJ+1}
+    \strng{fullhash}{EJBCEGMSBJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{number}{9}
+    \field{pages}{4388\bibrangedash 4401}
+    \field{title}{Dynamic optimization of nonlinear processes with an enhanced
+  scatter search method}
+    \field{volume}{48}
+    \field{journaltitle}{Industrial \& Engineering Chemistry Research}
+    \field{year}{2009}
+  \endentry
+
+  \entry{Fletcher_Reeves:64}{article}{}
+    \name{author}{2}{}{%
+      {{hash=FR}{%
+         family={Fletcher},
+         familyi={F\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=RC}{%
+         family={Reeves},
+         familyi={R\bibinitperiod},
+         given={C.M.},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FRRC1}
+    \strng{fullhash}{FRRC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \field{pages}{148\bibrangedash 154}
+    \field{title}{Function minimization by conjugate gradients}
+    \field{volume}{7}
+    \field{journaltitle}{Computer Journal}
+    \field{year}{1964}
+  \endentry
+
+  \entry{Ghalanos_Theussl:12}{manual}{}
+    \name{author}{2}{}{%
+      {{hash=GA}{%
+         family={Ghalanos},
+         familyi={G\bibinitperiod},
+         given={Alexios},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=TS}{%
+         family={Theussl},
+         familyi={T\bibinitperiod},
+         given={Stefan},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GATS1}
+    \strng{fullhash}{GATS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{title}{Rsolnp: General Non-linear Optimization Using Augmented
+  Lagrange Multiplier Method. R package version 1.12}
+    \field{year}{2012}
+  \endentry
+
+  \entry{Hansen_Mladenovic_Perez-Brito:01}{article}{}
+    \name{author}{3}{}{%
+      {{hash=HP}{%
+         family={Hansen},
+         familyi={H\bibinitperiod},
+         given={P.},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=MN}{%
+         family={Mladenovi\'{c}},
+         familyi={M\bibinitperiod},
+         given={N.},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=PBD}{%
+         family={P\'{e}rez-Brito},
+         familyi={P\bibinithyphendelim B\bibinitperiod},
+         given={D},
+         giveni={D},
+      }}%
+    }
+    \strng{namehash}{HPMNPBD1}
+    \strng{fullhash}{HPMNPBD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{number}{4}
+    \field{pages}{335\bibrangedash 350}
+    \field{title}{Variable neighborhood decomposition search}
+    \field{volume}{7}
+    \field{journaltitle}{Journal of Heuristics}
+    \field{year}{2001}
+  \endentry
+
+  \entry{CNORode}{manual}{}
+    \name{author}{2}{}{%
+      {{hash=HD}{%
+         family={Henriques},
+         familyi={H\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=CT}{%
+         family={Cokelaer},
+         familyi={C\bibinitperiod},
+         given={Thomas},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HDCT1}
+    \strng{fullhash}{HDCT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{note}{R package version 1.2.0}
+    \field{title}{CNORode: ODE add-on to CellNOptR}
+    \field{year}{2012}
+  \endentry
+
+  \entry{krumsiek2010odefy}{article}{}
+    \name{author}{4}{}{%
+      {{hash=KJ}{%
+         family={Krumsiek},
+         familyi={K\bibinitperiod},
+         given={Jan},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=PS}{%
+         family={P{\"o}lsterl},
+         familyi={P\bibinitperiod},
+         given={Sebastian},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=WD}{%
+         family={Wittmann},
+         familyi={W\bibinitperiod},
+         given={Dominik},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=TF}{%
+         family={Theis},
+         familyi={T\bibinitperiod},
+         given={Fabian},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {BioMed Central Ltd}%
+    }
+    \strng{namehash}{KJ+1}
+    \strng{fullhash}{KJPSWDTF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{number}{1}
+    \field{pages}{233}
+    \field{title}{Odefy-from discrete to continuous models}
+    \field{volume}{11}
+    \field{journaltitle}{BMC bioinformatics}
+    \field{year}{2010}
+  \endentry
+
+  \entry{de-la-Maza_Yuret:94}{article}{}
+    \name{author}{2}{}{%
+      {{hash=dlMM}{%
+         prefix={de\bibnamedelima la},
+         prefixi={d\bibinitperiod\bibinitdelim l\bibinitperiod},
+         family={Maza},
+         familyi={M\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=YD}{%
+         family={Yuret},
+         familyi={Y\bibinitperiod},
+         given={D.},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MMdlYD1}
+    \strng{fullhash}{MMdlYD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{number}{3}
+    \field{pages}{26\bibrangedash 31}
+    \field{title}{Dynamic hill climbing}
+    \field{volume}{9}
+    \field{journaltitle}{AI Expert}
+    \field{year}{1994}
+  \endentry
+
+  \entry{Mladenovic_Hansen:97}{article}{}
+    \name{author}{2}{}{%
+      {{hash=MN}{%
+         family={Mladenovi\'{c}},
+         familyi={M\bibinitperiod},
+         given={N.},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=HP}{%
+         family={Hansen},
+         familyi={H\bibinitperiod},
+         given={P.},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MNHP1}
+    \strng{fullhash}{MNHP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{pages}{1097\bibrangedash 1100}
+    \field{title}{Variable neighborhood search}
+    \field{volume}{24}
+    \field{journaltitle}{Computers and Operations Research}
+    \field{year}{1997}
+  \endentry
+
+  \entry{Hansen_Mladenovic_Moreno-Perez:10}{article}{}
+    \name{author}{2}{}{%
+      {{hash=MN}{%
+         family={Mladenovi\'{c}},
+         familyi={M\bibinitperiod},
+         given={N.},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=HP}{%
+         family={Hansen},
+         familyi={H\bibinitperiod},
+         given={P.},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MNHP1}
+    \strng{fullhash}{MNHP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{number}{1}
+    \field{pages}{367\bibrangedash 407}
+    \field{title}{Variable neighbourhood search: methods and applications}
+    \field{volume}{175}
+    \field{journaltitle}{Annals of Operations Research}
+    \field{year}{2010}
+  \endentry
+
+  \entry{Nelder_Mead:65}{article}{}
+    \name{author}{2}{}{%
+      {{hash=NJ}{%
+         family={Nelder},
+         familyi={N\bibinitperiod},
+         given={J.A.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=MR}{%
+         family={Mead},
+         familyi={M\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{NJMR1}
+    \strng{fullhash}{NJMR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{N}
+    \field{sortinithash}{N}
+    \field{pages}{308\bibrangedash 313}
+    \field{title}{A simplex algorithm for function minimization}
+    \field{volume}{7}
+    \field{journaltitle}{Computer Journal}
+    \field{year}{1965}
+  \endentry
+
+  \entry{raidl2006unified}{incollection}{}
+    \name{author}{1}{}{%
+      {{hash=RGR}{%
+         family={Raidl},
+         familyi={R\bibinitperiod},
+         given={G{\"u}nther\bibnamedelima R},
+         giveni={G\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \strng{namehash}{RGR1}
+    \strng{fullhash}{RGR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{booktitle}{Hybrid Metaheuristics}
+    \field{pages}{1\bibrangedash 12}
+    \field{title}{A unified view on hybrid metaheuristics}
+    \field{year}{2006}
+  \endentry
+
+  \entry{Rodriguez-Fernandez_et_al:06b}{article}{}
+    \name{author}{3}{}{%
+      {{hash=RFM}{%
+         family={Rodr\'iguez-Fern\'andez},
+         familyi={R\bibinithyphendelim F\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=EJA}{%
+         family={Egea},
+         familyi={E\bibinitperiod},
+         given={J.\bibnamedelima A.},
+         giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=BJR}{%
+         family={Banga},
+         familyi={B\bibinitperiod},
+         given={J.\bibnamedelima R.},
+         giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RFMEJABJR1}
+    \strng{fullhash}{RFMEJABJR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{pages}{483+}
+    \field{title}{Novel metaheuristic for parameter estimation in nonlinear
+  dynamic biological systems}
+    \field{volume}{7}
+    \field{journaltitle}{BMC Bioinformatics}
+    \field{year}{2006}
+  \endentry
+
+  \entry{saez2009discrete}{article}{}
+    \name{author}{7}{}{%
+      {{hash=SRJ}{%
+         family={Saez-Rodriguez},
+         familyi={S\bibinithyphendelim R\bibinitperiod},
+         given={Julio},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=ALG}{%
+         family={Alexopoulos},
+         familyi={A\bibinitperiod},
+         given={Leonidas\bibnamedelima G},
+         giveni={L\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=EJ}{%
+         family={Epperlein},
+         familyi={E\bibinitperiod},
+         given={Jonathan},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=SR}{%
+         family={Samaga},
+         familyi={S\bibinitperiod},
+         given={Regina},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=LDA}{%
+         family={Lauffenburger},
+         familyi={L\bibinitperiod},
+         given={Douglas\bibnamedelima A},
+         giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=KS}{%
+         family={Klamt},
+         familyi={K\bibinitperiod},
+         given={Steffen},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SPK}{%
+         family={Sorger},
+         familyi={S\bibinitperiod},
+         given={Peter\bibnamedelima K},
+         giveni={P\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Nature Publishing Group}%
+    }
+    \strng{namehash}{SRJ+1}
+    \strng{fullhash}{SRJALGEJSRLDAKSSPK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{number}{1}
+    \field{title}{Discrete logic modelling as a means to link protein
+  signalling networks with functional analysis of mammalian signal
+  transduction}
+    \field{volume}{5}
+    \field{journaltitle}{Molecular Systems Biology}
+    \field{year}{2009}
+  \endentry
+
+  \entry{Tang_et_al:12}{article}{}
+    \name{author}{3}{}{%
+      {{hash=TK}{%
+         family={Tang},
+         familyi={T\bibinitperiod},
+         given={K.},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=YZ}{%
+         family={Yang},
+         familyi={Y\bibinitperiod},
+         given={Z.},
+         giveni={Z\bibinitperiod},
+      }}%
+      {{hash=WT}{%
+         family={Weise},
+         familyi={W\bibinitperiod},
+         given={T.},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{TKYZWT1}
+    \strng{fullhash}{TKYZWT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{title}{Competition on Large Scale Global Optimization}
+  \field{volume}{\url{http://staff.ustc.edu.cn/~ketang/cec2012/lsgo_competition.htm}}
+    \field{journaltitle}{IEEE World Congress on Computational Intelligence}
+    \field{year}{2012}
+  \endentry
+
+  \entry{CellNOptR}{manual}{}
+    \name{author}{5}{}{%
+      {{hash=T}{%
+         family={{T.Cokelaer}},
+         familyi={T\bibinitperiod},
+      }}%
+      {{hash=F}{%
+         family={{F.Eduati}},
+         familyi={F\bibinitperiod},
+      }}%
+      {{hash=A}{%
+         family={{A.MacNamara}},
+         familyi={A\bibinitperiod},
+      }}%
+      {{hash=S}{%
+         family={{S.Schrier}},
+         familyi={S\bibinitperiod},
+      }}%
+      {{hash=C}{%
+         family={{C.Terfve}},
+         familyi={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{T+1}
+    \strng{fullhash}{TFASC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{note}{R package version 1.6.0}
+    \field{title}{CellNOptR: Training of boolean logic models of signalling
+  networks using prior knowledge networks and perturbation data.}
+    \field{year}{2012}
+  \endentry
+
+  \entry{terfve2012cellnoptr}{article}{}
+    \name{author}{9}{}{%
+      {{hash=TC}{%
+         family={Terfve},
+         familyi={T\bibinitperiod},
+         given={Camille},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=CT}{%
+         family={Cokelaer},
+         familyi={C\bibinitperiod},
+         given={Thomas},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=HD}{%
+         family={Henriques},
+         familyi={H\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=MA}{%
+         family={MacNamara},
+         familyi={M\bibinitperiod},
+         given={Aidan},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=GE}{%
+         family={Goncalves},
+         familyi={G\bibinitperiod},
+         given={Emanuel},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=MMK}{%
+         family={Morris},
+         familyi={M\bibinitperiod},
+         given={Melody\bibnamedelima K},
+         giveni={M\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+      {{hash=vIM}{%
+         prefix={van},
+         prefixi={v\bibinitperiod},
+         family={Iersel},
+         familyi={I\bibinitperiod},
+         given={Martijn},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=LDA}{%
+         family={Lauffenburger},
+         familyi={L\bibinitperiod},
+         given={Douglas\bibnamedelima A},
+         giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=SRJ}{%
+         family={Saez-Rodrigues},
+         familyi={S\bibinithyphendelim R\bibinitperiod},
+         given={J},
+         giveni={J},
+      }}%
+    }
+    \strng{namehash}{TC+1}
+    \strng{fullhash}{TCCTHDMAGEMMKIMvLDASRJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{number}{1}
+    \field{pages}{133}
+    \field{title}{CellNOptR: a flexible toolkit to train protein signaling
+  networks to data using multiple logic formalisms}
+    \field{volume}{6}
+    \field{journaltitle}{BMC Syst Biol}
+    \field{year}{2012}
+  \endentry
+
+  \entry{Villaverde_et_al:12}{article}{}
+    \name{author}{3}{}{%
+      {{hash=VAF}{%
+         family={Villaverde},
+         familyi={V\bibinitperiod},
+         given={A.\bibnamedelima F.},
+         giveni={A\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+      {{hash=EJA}{%
+         family={Egea},
+         familyi={E\bibinitperiod},
+         given={J.\bibnamedelima A.},
+         giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=BJR}{%
+         family={Banga},
+         familyi={B\bibinitperiod},
+         given={J.\bibnamedelima R.},
+         giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{VAFEJABJR1}
+    \strng{fullhash}{VAFEJABJR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{V}
+    \field{sortinithash}{V}
+    \field{pages}{75}
+    \field{title}{A cooperative strategy for parameter estimation in large
+  scale systems biology models}
+    \field{volume}{6}
+    \field{journaltitle}{BMC Systems Biology}
+    \field{year}{2012}
+  \endentry
+
+  \entry{Ye:87}{thesis}{}
+    \name{author}{1}{}{%
+      {{hash=YY}{%
+         family={Ye},
+         familyi={Y\bibinitperiod},
+         given={Y.},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{YY1}
+    \strng{fullhash}{YY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Y}
+    \field{sortinithash}{Y}
+    \field{title}{Interior algorithms for linear, quadratic and linearly
+  constrained non-linear programming}
+    \list{institution}{1}{%
+      {Stanford University}%
+    }
+    \field{type}{phdthesis}
+    \field{year}{1987}
+  \endentry
+\enddatalist
+\endinput
