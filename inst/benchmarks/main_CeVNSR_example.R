@@ -29,4 +29,4 @@ opts$ce_niter=4;
 opts$ce_type="SOCKS";
 opts$ce_isparallel= TRUE;
 
-Results=MEIGO(problem,opts, algorithm="CeVNSR");
+Results=MEIGO(problem,opts, algorithm="CeVNSR")
