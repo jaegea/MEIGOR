@@ -91,6 +91,8 @@
 
 	nvar=20;
 
+	sfStop()
+	
 	problem<-list(f=rosen10, x_L=rep(-1000,nvar), x_U=rep(1000,nvar))
 
 	opts=list();
@@ -106,6 +108,7 @@
 	opts$ce_isparallel= TRUE;
 
 	Results=MEIGO(problem,opts, algorithm="CeVNSR");
+	sfStop()
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

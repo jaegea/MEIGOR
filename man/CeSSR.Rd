@@ -98,6 +98,9 @@ rosen10<-function(x){
 }
 
 nvar=20;
+
+sfStop()
+
 problem<-list(f=rosen10, x_L=rep(-1000,nvar), x_U=rep(1000,nvar));
 
 #Set 1 nodes and 2 cpu's per node
@@ -163,7 +166,7 @@ opts$ce_isparallel=TRUE;
 
 #Call the solver
 Results<-MEIGO(problem,opts,algorithm="CeSSR")
-
+sfStop()
 }
 
 \keyword{cooperative}
