@@ -78,35 +78,38 @@
 	\link{rvnds_hamming}
 	\link{MEIGO}
 }
-\examples{
-	
-	rosen10<-function(x){
-		f<-0;
-		n=length(x);
-		for (i in 1:(n-1)){
-			f <- f + 100*(x[i]^2 - x[i+1])^2 + (x[i]-1)^2;
-		}
-		return(f)
-	}
-
-	nvar=20;
-
-	problem<-list(f=rosen10, x_L=rep(-1000,nvar), x_U=rep(1000,nvar))
-
-	opts=list();
-	opts[[1]]=list(use_local=1,aggr=1,local_search=1,decomp=1,maxdist=0.8,maxeval=2000);
-	opts[[2]]=list(use_local=1,aggr=0,local_search=2,decomp=0,maxdist=0.5,maxeval=2000);
-	opts[[3]]=list(use_local=1,aggr=0,local_search=2,decomp=0,maxdist=0.5,maxeval=2000);
-	opts[[4]]=list(use_local=1,aggr=0,local_search=2,decomp=0,maxdist=0.5,maxeval=2000);
-
-	opts$hosts=c('localhost','localhost','localhost','localhost');
-
-	opts$ce_niter=2;
-	opts$ce_type="SOCKS";
-	opts$ce_isparallel= TRUE;
-
-	Results=MEIGO(problem,opts, algorithm="CeVNSR");
-}
+%\examples{
+	%
+	%rosen10<-function(x){
+	%	f<-0;
+	%	n=length(x);
+	%	for (i in 1:(n-1)){
+	%		f <- f + 100*(x[i]^2 - x[i+1])^2 + (x[i]-1)^2;
+	%	}
+	%	return(f)
+	%}
+%
+%	nvar=20;
+%
+%	sfStop()
+%	
+%	problem<-list(f=rosen10, x_L=rep(-1000,nvar), x_U=rep(1000,nvar))
+%
+%	opts=list();
+%	opts[[1]]=list(use_local=1,aggr=1,local_search=1,decomp=1,maxdist=0.8,maxeval=2000);
+%	opts[[2]]=list(use_local=1,aggr=0,local_search=2,decomp=0,maxdist=0.5,maxeval=2000);
+%	opts[[3]]=list(use_local=1,aggr=0,local_search=2,decomp=0,maxdist=0.5,maxeval=2000);
+%	opts[[4]]=list(use_local=1,aggr=0,local_search=2,decomp=0,maxdist=0.5,maxeval=2000);
+%
+%	opts$hosts=c('localhost','localhost','localhost','localhost');
+%
+%	opts$ce_niter=2;
+%	opts$ce_type="SOCKS";
+%	opts$ce_isparallel= TRUE;
+%
+%	Results=MEIGO(problem,opts, algorithm="CeVNSR");
+%	sfStop()
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{cooperative}

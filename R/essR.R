@@ -4,10 +4,9 @@ essR <-
     # R code of the eSS optimization code from: Process Engineering Group IIM-CSIC	
     # Created on : 09/06/2011
     # Last Update: 25/07/2012
-    # Email      : josea.egea@upct.es
+    # Email      : josea.egea@gmail.com
     # 
-    # (c) CSIC, Spanish Council for Scientific Research
-    #     Techichal University of Cartagena (UPCT), Spain
+    # (c) CSIC, Spanish Council for Scientific Research, Spain
     # 
     # Global optimization algorithm for MINLPs based on Scatter Search
     # 
@@ -78,6 +77,7 @@ essR <-
     #                             (Default 1e-5)
     #           opts$prob_bound = Probability (0-1) of biasing the search towards
     #                             the bounds (Default 0.5)
+    #           opts$save_results = Saves final results in eSSR_report.RData. (Binary; Default = 1)
     #           opts$inter_save = Saves results of intermediate iterations in eSSR_report.RData
     #                             Useful for very long runs. (Binary; Default = 0)
     # 
@@ -286,6 +286,7 @@ essR <-
     #User options
     iterprint=opts$iterprint;
     prob_bound=opts$prob_bound;
+    save_results=opts$save_results;
     inter_save=opts$inter_save;
     plot_results=opts$plot;
     weight=opts$weight;
@@ -812,8 +813,7 @@ essR <-
               Results$Refset$fpen<-Refset_values_penalty;       
               Results$Refset$const<-Refset_nlc;                
               Results$Refset$penalty<-penalty;
-              save(opts, problem, Results, file = "eSSR_report.RData")
-              
+              if (save_results){save(opts, problem, Results, file = "eSSR_report.RData")}
             }
           }
         }
@@ -1168,7 +1168,7 @@ essR <-
           Results$Refset$fpen<-Refset_values_penalty;
           Results$Refset$const<-Refset_nlc;
           Results$Refset$penalty<-penalty;
-          save(opts, problem, Results, file = "eSSR_report.RData")
+          if (save_results){save(opts, problem, Results, file = "eSSR_report.RData")}
           
           #if plot_results==1 |plot_results==2
           #					stairs(Results.time,Results.f)
