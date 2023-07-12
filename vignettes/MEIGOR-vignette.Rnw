@@ -8,17 +8,20 @@
 
 \documentclass{article}
 
-\usepackage[backend=bibtex]{biblatex}
-\bibliography{MEIGO_refs}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage[square,numbers]{natbib}
+
+% \usepackage[backend=bibtex]{biblatex}
 
 
-%\usepackage{Sweave,fullpage}
+
+%%\usepackage{Sweave,fullpage}
 \usepackage{fullpage}
 
 \usepackage{url, color}
 
 
-%\usepackage{cmap}
+\usepackage{cmap}
 
 \usepackage{authblk}
 \usepackage[T1]{fontenc}
@@ -41,43 +44,46 @@
 \definecolor{green}{rgb}{0.6, 0.9,0.6}
 
 
-\DefineVerbatimEnvironment{Sinput}{Verbatim}{%
-    fontshape=sl,
-    frame=single,
-    xleftmargin=2em,
-    fillcolor=\color{gris90},
-%    numbers=left % prevent copy/paste entire code
-    }
-\DefineVerbatimEnvironment{Soutput}{Verbatim}{
-    fontshape=sl,
-    frame=single,
-    xleftmargin=2em,
-    fillcolor=\color{green}
-}
+ \DefineVerbatimEnvironment{Sinput}{Verbatim}{%
+     fontshape=sl,
+     frame=single,
+     xleftmargin=2em,
+     fillcolor=\color{gris90},
+ %    numbers=left % prevent copy/paste entire code
+     }
+ \DefineVerbatimEnvironment{Soutput}{Verbatim}{
+     fontshape=sl,
+     frame=single,
+     xleftmargin=2em,
+     fillcolor=\color{green}
+ }
+ 
+ 
+ \DefineVerbatimEnvironment{shell}{Verbatim}{formatcom=\color{blue}}
 
-
-\DefineVerbatimEnvironment{shell}{Verbatim}{formatcom=\color{blue}}
-
-\title{
-	 MEIGOR: a software suite based on metaheuristics for global
-		 optimization in systems biology and bioinformatics}
+ \title{
+ 	 MEIGOR: a software suite based on metaheuristics for global
+ 		 optimization in systems biology and bioinformatics}
+% 	
+% 	%ALEX, incomplete logos,
+% 	%ALEX, autthors list
+% 	
+ 	\author[1]{Jose A. Egea\thanks{josea.egea@gmail.com}}
+ 	\author[2]{David Henriques}
+ 	\author[3]{Thomas Cokelaer}
+ 	\author[4]{Alejandro F. Villaverde}
+ 	\author[5]{Julio R. Banga \thanks{j.r.banga@csic.es}}
+ 	\author[6]{Julio Saez-Rodriguez \thanks{pub.saez@uni-heidelberg.de}}
+ 
+ 	\affil[1]{Centro de Edafolog\'ia y Biolog\'ia Aplicada del Segura, Murcia, Spain}
+ 	\affil[2]{Instituto de Investigaciones Marinas-CSIC, Vigo, Spain}
+ 	\affil[3]{Institute Pasteur, Paris, France}
+ 	\affil[4]{University of Vigo, Vigo, Spain}
+ 	\affil[5]{Misi\'on Biol\'oxica de Galicia, Pontevedra, Spain}
+ 	\affil[6]{Universit\"at Heidelberg, Heidelberg, Germany}
 	
-	%ALEX, incomplete logos,
-	%ALEX, autthors list
-	
-	\author[1]{Jose A. Egea\thanks{josea.egea@gmail.com}}
-	\author[2]{David Henriques}
-	\author[3]{Thomas Cokelaer}
-	\author[2]{Alejandro F. Villaverde}
-	\author[2]{Julio R. Banga \thanks{julio@iim.csic.es}}
-	\author[4]{Julio Saez-Rodriguez \thanks{julio.saez@bioquant.uni-heidelberg.de}}
-
-	\affil[1]{Centro de Edafolog\'ia y Biolog\'ia Aplicada del Segura, Murcia, Spain}
-	\affil[2]{Instituto de Investigaciones Marinas-CSIC, Vigo, Spain}
-	\affil[3]{Institute Pasteur, Paris, France}
-	\affil[4]{Universit\"at Heidelberg, Saez-Rodriguez group, Heidelberg, Germany}
-	
-
+%\title{An R package for Newton's Algorithm}
+%\author{Robin Hood \and Maid Marion \and Will Scarlett}
  
 \begin{document}
 
@@ -87,6 +93,7 @@ opts_chunk$set(
 concordance=TRUE
 )
 @
+
 
 %\bibliographystyle{plain} 
 
@@ -121,12 +128,12 @@ set.seed(123L)
 	This manual describes both methods, their corresponding parallelizable versions, and guides the user to
 	implement his/her own optimization problems and to choose the best set of options for a particular instance.
 
-
-	\section{Installing \textit{MEIGOR}}
-
-Before starting this tutorial you need to install the package MEIGOR. You can install
-MEIGOR from Bioconductor by typing:
-
+ 
+ 	\section{Installing \textit{MEIGOR}}
+ 
+ Before starting this tutorial you need to install the package MEIGOR. You can install
+ MEIGOR from Bioconductor by typing:
+ 
 <<installMEIGO2, eval=FALSE, pgf=TRUE, echo=TRUE>>=
 if (!requireNamespace("BiocManager", quietly=TRUE))
     install.packages("BiocManager")
@@ -136,23 +143,30 @@ BiocManager::install("CellNOptR")
 
 \section{Continuous and mixed-integer problems: Enhanced Scatter Search (\textit{eSSR})}
 
- 	\textit{eSSR} is an R implementation of the enhanced scatter search method \cite{Egea_et_al:09,Egea_et_al:10} which is part of the \textit{MEIGO} toolbox for global optimization in bioinformatics. It is a metaheuristic which seeks the global minimum of mixed-integer nonlinear programming (MINLP) problems specified by
+	\textit{eSSR} is an R implementation of the enhanced scatter search method \cite{Egea_et_al:09,Egea_et_al:10} which is part of the \textit{MEIGO} toolbox for global optimization in bioinformatics. It is a metaheuristic which seeks the global minimum of mixed-integer nonlinear programming (MINLP) problems specified by
 
 	\begin{eqnarray*}
 	\min\limits_{x}f(x,p_1,p_2,...,p_n)
 	\end{eqnarray*}
+ 
+ 	\noindent subject to
+ 
+ 	\begin{eqnarray*}
+ 	c_{eq}=0 \\
+ 	c_L\leq c(x)\leq c_U\\
+ 	x_L\leq x\leq x_U \\
+ 	\end{eqnarray*}
+ 
+ 
+ %RECOVER THIS PARAGRAPH WHEN THE NL2SOL ISSUE IS SOLVED
+ 
+  	% where $x$ is the vector of decision variables, and $x_L$ and $x_U$ its respective bounds. $p_1,\ldots,p_n$ are optional extra input parameters to be passed to the objective function (see examples in sections \ref{sec:use_param1}, \ref{sec:nl2sol_use}). $c_{eq}$ is a set of equality constraints. $c(x)$ is a set of inequality constraints with lower and upper bounds, $c_L$ and $c_U$. Finally, $f(x,p_1,p_2,...,p_n)$ is the objective function to be minimized.
+  	
+%DELETE THIS PARAGRAPH WHEN THE NL2SOL ISSUE IS SOLVED
+  	
+  	  	where $x$ is the vector of decision variables, and $x_L$ and $x_U$ its respective bounds. $p_1,\ldots,p_n$ are optional extra input parameters to be passed to the objective function (see example in section \ref{sec:use_param1}). $c_{eq}$ is a set of equality constraints. $c(x)$ is a set of inequality constraints with lower and upper bounds, $c_L$ and $c_U$. Finally, $f(x,p_1,p_2,...,p_n)$ is the objective function to be minimized.
 
-	\noindent subject to
-
-	\begin{eqnarray*}
-	c_{eq}=0 \\
-	c_L\leq c(x)\leq c_U\\
-	x_L\leq x\leq x_U \\
-	\end{eqnarray*}
-
- 	where $x$ is the vector of decision variables, and $x_L$ and $x_U$ its respective bounds. $p_1,\ldots,p_n$ are optional extra input parameters to be passed to the objective function (see examples in sections \ref{sec:use_param1}, \ref{sec:nl2sol_use}). $c_{eq}$ is a set of equality constraints. $c(x)$ is a set of inequality constraints with lower and upper bounds, $c_L$ and $c_U$. Finally, $f(x,p_1,p_2,...,p_n)$ is the objective function to be minimized.
-
- \subsection{Quick start: How to carry out an optimization with \textit{eSSR}}
+  \subsection{Quick start: How to carry out an optimization with \textit{eSSR}}
 <<load_package, eval=TRUE, pgf=TRUE, echo=FALSE,results='hide',warning=FALSE, message=FALSE>>=
 library(MEIGOR)
 @
@@ -163,28 +177,28 @@ problem<-list(f=objective, x_L=rep(-1,2), x_U=rep(1,2))
 opts<-list(maxeval=500, local_solver='DHC')
 @
 
- 	\begin{itemize}
- 		 \item Type: \texttt{Results<-MEIGO(problem,opts,algorithm="ESS")} . If your problem has additional constant parameters to be passed to the objective function, they are declared as input parameters after "opts" (e.g., type \texttt{ Results<-MEIGO(problem,opts,algorithm="ESS",p1,p2)}  if your model has two extra input parameters, $p_1$ and $p_2$).
- 	 \end{itemize}
+	\begin{itemize}
+		 \item Type: \texttt{Results<-MEIGO(problem,opts,algorithm="ESS")} . If your problem has additional constant parameters to be passed to the objective function, they are declared as input parameters after "opts" (e.g., type \texttt{ Results<-MEIGO(problem,opts,algorithm="ESS",p1,p2)}  if your model has two extra input parameters, $p_1$ and $p_2$).
+	 \end{itemize}
 
- Regarding the objective function, the input parameter is the decision vector (with extra parameters $p_1, p_2,\ldots, p_n$ if they were defined before calling the solver). The objective function must provide a scalar output parameter (the objective function value) and, for constrained problems, a second output parameter, which is a vector containing the values of the constraints. For problems containing equality constraints ($=0$), they must be defined before the inequality constraints. Some examples are provided in section \ref{sec:examples}. For a quick reference, consider the following example which will be later extended in section \ref{sec:use_param1}.
+Regarding the objective function, the input parameter is the decision vector (with extra parameters $p_1, p_2,\ldots, p_n$ if they were defined before calling the solver). The objective function must provide a scalar output parameter (the objective function value) and, for constrained problems, a second output parameter, which is a vector containing the values of the constraints. For problems containing equality constraints ($=0$), they must be defined before the inequality constraints. Some examples are provided in section \ref{sec:examples}. For a quick reference, consider the following example which will be later extended in section \ref{sec:use_param1}.
 
 	\begin{eqnarray*}
- 		\min\limits_{x}f(x)=-x_4
- 	\end{eqnarray*}
+		\min\limits_{x}f(x)=-x_4
+	\end{eqnarray*}
 
- 	\noindent subject to
- 	\begin{eqnarray*}
- 	x_4 - x_3 + x_2 - x_1 + k_4x_4x_6 = 0\\
- 	x_1 - 1 + k_1x_1x_5 = 0\\
- 	x_2 - x_1 + k_2x_2x_6 = 0\\
- 	x_3 + x_1 - 1 + k_3x_3x_5 = 0\\
- 	x_5^{0.5} + x_6^{0.5} \leq 4\\
- 	0 \leq x_1, x_2, x_3, x_4 \leq 1\\
- 	0 \leq x_5, x_6 \leq 16
- 	\end{eqnarray*}
+	\noindent subject to
+	\begin{eqnarray*}
+	x_4 - x_3 + x_2 - x_1 + k_4x_4x_6 = 0\\
+	x_1 - 1 + k_1x_1x_5 = 0\\
+	x_2 - x_1 + k_2x_2x_6 = 0\\
+	x_3 + x_1 - 1 + k_3x_3x_5 = 0\\
+	x_5^{0.5} + x_6^{0.5} \leq 4\\
+	0 \leq x_1, x_2, x_3, x_4 \leq 1\\
+	0 \leq x_5, x_6 \leq 16
+	\end{eqnarray*}
 
- 	with $k_1, k_2, k_3, k_4$ being extra parameters defined before calling the solver. The objective function for this problem would be:
+	with $k_1, k_2, k_3, k_4$ being extra parameters defined before calling the solver. The objective function for this problem would be:
 
 <<quickProblemSolve, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 ex3<-function(x,k1,k2,k3,k4){
@@ -245,7 +259,9 @@ If the problem contains additional constraints and/or integer or binary variable
 			\item \textbf{maxtime}: Maximum CPU time in seconds (default: 60).
 			\item \textbf{iterprint}: Print information on the screen after each iteration. 0: Deactivated; 1: Activated (default: 1).
 			\item \textbf{weight}: Weight that multiplies the penalty term added to the objective function in constrained problems (default: $10^6$).
-			\item \textbf{log\_var}: Indexes of the variables which will be analyzed using a logarithmic distribution instead of an uniform one\footnote[3]{Useful when the bounds of a decision variables have different orders of magnitude and they are both positive.} (default: numeric(0)). See an example in Section \ref{sec:nl2sol_use}.
+			\item \textbf{log\_var}: Indexes of the variables which will be analyzed using a logarithmic distribution instead of an uniform one\footnote[3]{Useful when the bounds of a decision variables have different orders of magnitude and they are both positive.} (default: numeric(0)).
+			%RECOVER THIS PARAGRAPH WHEN THE NL2SOL ISSUE IS SOLVED
+			%See an example in Section \ref{sec:nl2sol_use}.
 		\item \textbf{tolc}: Maximum constraint violation allowed. This is also used as a tolerance for the local search (default: $10^{-5}$).
 		\item \textbf{prob\_bound}: Probability (0-1) of biasing the search towards the bounds. 0: Never bias to bounds; 1: Always bias to bounds (default: 0.5).
 		\item \textbf{save\_results}: Saves final results in \textbf{eSSR\_report.Rdata}. 0: deactivated; 1: activated (default: 1).
@@ -264,79 +280,87 @@ If the problem contains additional constraints and/or integer or binary variable
  \subsubsection{Local options}
  	\label{sec:local_options}
  	\textit{eSSR} is a global optimization method which performs local searches from selected initial points to accelerate the convergence to optimal solutions. Some options regarding the local search can be defined in the \textbf{opts} list, as follows:
+ 
+  \begin{itemize}
 
- \begin{itemize}
- 		\item \textbf{local\_solver}: Local solver to perform the local search. Different solvers available and their names must be introduced as strings. Please note that at the moment no local solver for mixed-integer problems is available within \textit{eSSR}:
- 		\begin{itemize}
- 			\item \textit{NM}:\footnote[3]{Included in the R \textit{optim} function. \url{http://stat.ethz.ch/R-manual/R-devel/library/stats/html/optim.html}}. Nelder and Mead method for unconstrained problems \cite{Nelder_Mead:65}.
- 			\item \textit{BFGS}:\footnotemark[3] Quasi-Newton method for unconstrained problems \cite{Broyden:70}.
- 			\item \textit{CG}:\footnotemark[3] Conjugate gradients method for unconstrained problems \cite{Fletcher_Reeves:64}.
- 			\item \textit{LBFGSB}:\footnotemark[3] Quasi-Newton method which allows box constraints \cite{Byrd_et_al:95}.
- 			\item \textit{SA}:\footnotemark[3] Variant of simulated annealing for unconstrained problems \cite{Belisle:92}.
+  		 \item \textbf{local\_solver}: Local solver to perform the local search. Different solvers available and their names must be introduced as strings. Please note that at the moment no local solver for mixed-integer problems is available within \textit{eSSR}:
+  		
+   		 \begin{itemize}
 
- 			\item \textit{SOLNP}: the SQP method \footnote[4]{Implemented by Alexios Ghalanos and Stefan Theussl \cite{Ghalanos_Theussl:12}. Requires the packages \textbf{Rsolnp} and \textbf{truncnorm} \url{http://cran.r-project.org/web/packages/Rsolnp/index.html}} by \cite{Ye:87}.
- 			\item \textit{DHC}: Direct search method \cite{de-la-Maza_Yuret:94}.
- 			\item \textit{NL2SOL}: Specific method for non-linear least squares problems \cite{Dennis_et_al:81}, implemented through the \textit{nls} R function.
- 		\end{itemize}
- 	\item \textbf{local\_tol}:  Level of tolerance in local search. 1: Relaxed; 2: Medium; 3: Tight (default: 2 in intermediate searches and 3 in the final stage).
- 	\item \textbf{local\_iterprint}: Print each iteration of local solver on screen (only for local solvers that allow it). 0: Deactivated; 1: Activated (default: 0).
- 	\item \textbf{local\_n1}: Number of  iterations before applying the local search for the first time (default: 1).
- 	\item \textbf{local\_n2}: Number of function iterations in the global phase between two consecutive local searches (default: 10).
- 	\item \textbf{local\_finish}: Chooses the local solver to apply a final refinement to the best solution found once the optimization is finished (default: same as \textbf{local\_solver}).
- 	\item \textbf{local\_bestx}: If activated (i.e., positive value), applies the local search only when the algorithm finds a solution better than the current best solution. 0: Deactivated; 1: Activated (default: 0).
- 	\item \textbf{local\_balance}: Balances between quality (=0) and diversity (=1) for choosing initial points for the local search (default 0.5).
+   		 	\item \textit{NM}:\footnote[3]{Included in the R \textit{optim} function. \url{http://stat.ethz.ch/R-manual/R-devel/library/stats/html/optim.html}}. Nelder and Mead method for unconstrained problems \cite{Nelder_Mead:65}.
+  			\item \textit{BFGS}:\footnotemark[3] Quasi-Newton method for unconstrained problems \cite{Broyden:70}.
+  			\item \textit{CG}:\footnotemark[3] Conjugate gradients method for unconstrained problems \cite{Fletcher_Reeves:64}.
+  			\item \textit{LBFGSB}:\footnotemark[3] Quasi-Newton method which allows box constraints \cite{Byrd_et_al:95}.
+  			\item \textit{SA}:\footnotemark[3] Variant of simulated annealing for unconstrained problems \cite{Belisle:92}.
+  			\item \textit{SOLNP}: the SQP method \footnote[4]{Implemented by Alexios Ghalanos and Stefan Theussl \cite{Ghalanos_Theussl:12}. Requires the packages \textbf{Rsolnp} and \textbf{truncnorm} \url{http://cran.r-project.org/web/packages/Rsolnp/index.html}} by \cite{Ye:87}.
+  			\item \textit{DHC}: Direct search method \cite{de-la-Maza_Yuret:94}.
+  			
+  			%RECOVER THIS PARAGRAPH WHEN THE NL2SOL ISSUE IS SOLVED
+  			%\item \textit{NL2SOL}: Specific method for non-linear least squares problems \cite{Dennis_et_al:81}, implemented through the \textit{nls} R function.
+ 	
+   		\end{itemize}
+  		
+	\item \textbf{local\_tol}:  Level of tolerance in local search. 1: Relaxed; 2: Medium; 3: Tight (default: 2 in intermediate searches and 3 in the final stage).
+  	\item \textbf{local\_iterprint}: Print each iteration of local solver on screen (only for local solvers that allow it). 0: Deactivated; 1: Activated (default: 0).
+  	\item \textbf{local\_n1}: Number of  iterations before applying the local search for the first time (default: 1).
+  	\item \textbf{local\_n2}: Number of function iterations in the global phase between two consecutive local searches (default: 10).
+  	\item \textbf{local\_finish}: Chooses the local solver to apply a final refinement to the best solution found once the optimization is finished (default: same as \textbf{local\_solver}).
+  	\item \textbf{local\_bestx}: If activated (i.e., positive value), applies the local search only when the algorithm finds a solution better than the current best solution. 0: Deactivated; 1: Activated (default: 0).
+  	\item \textbf{local\_balance}: Balances between quality (=0) and diversity (=1) for choosing initial points for the local search (default 0.5).
+	\end{itemize}
+ 
+  	Note that, for some problems, the local search may be inefficient, spending a high computation time to provide low quality solutions. This is the case of many noisy or ill-posed problems. In these instances, the local search may be deactivated by user by defining the value of the field \textbf{solver} as zero.
+ 
+ 
+ %RECOVER THIS PARAGRAPH WHEN THE NL2SOL ISSUE IS SOLVED
+  	%When using \textit{NL2SOL} as local solver, the objective function value must be formulated as the square of the sum of differences between the experimental and predicted data (i.e., $\sum_{i=1}^{ndata} (yexp_i-yteor_i)^2$). Besides, a third output argument must be defined in the objective function: a vector containing those residuals (i.e., $R=[(yexp_1-yteor_1), (yexp_2-yteor_2),\ldots,(yexp_{ndata}-yteor_{ndata})$]). In Section \ref{sec:nl2sol_use} an application example illustrates the use of this local method.
+ 
+ 
+ 	\subsubsection{Output}
+ 	\label{sec:essr_output}
+ 	\textit{eSSR}'s output is a list (called \textbf{Results} here) containing the following fields:
+ 	 \begin{itemize}
+ 	 \item \textbf{Results\$fbest}: Best objective function value found after the optimization.
+ 	 \item \textbf{Results\$xbest}: Vector providing the best function value found.
+ 	 \item \textbf{Results\$cpu\_time}: CPU Time (in seconds) consumed in the optimization.
+ 	\item \textbf{Results\$f}: Vector containing the best objective function value after each iteration.
+ 	\item \textbf{Results\$x}: Matrix containing the best vector after each iteration.
+ 	\item \textbf{Results\$time}: Vector containing the CPU time consumed after each iteration.
+ 	\item \textbf{Results\$neval}: Vector containing the number of evaluations after each iteration.
+ 	\item \textbf{Results\$numeval}: Total number of function evaluations.
+ 	\item \textbf{Results\$local\_solutions}: Matrix of local solutions found.
+ 	\item \textbf{Results\$local\_solutions\_values}: Function values of the local solutions.
+ 	\item \textbf{Results\$Refset\$x}: Matrix of solutions in the final \textit{Refset} after the optimization.
+ 	\item \textbf{Results\$Refset\$f}: Objetive function values of the final \textit{Refset} members after the optimization.
+ 	\item \textbf{Results\$Refset\$fpen}: Penalized objetive function values of the final \textit{Refset} members after the optimization. The values for feasible solutions will coincide with their corresponding \textbf{Results\$Refset\$f} values.
+ 	\item \textbf{Results\$Refset\$const}: Matrix containing the values of the constraints (those whose bounds are defined in \textbf{problem\$c\_L} and/or \textbf{problem\$c\_U}) for each of the solutions in the final \textit{Refset} after the optimization.
+ 	\item \textbf{Results\$end\_crit}: Criterion to finish the optimization:
+ 	\begin{itemize}
+ 	\item  1: Maximum number of function evaluations achieved.
+ 	\item  2: Maximum allowed CPU time achieved.
+ 	\item  3: Value to reach achieved.
  	\end{itemize}
-
- 	Note that, for some problems, the local search may be inefficient, spending a high computation time to provide low quality solutions. This is the case of many noisy or ill-posed problems. In these instances, the local search may be deactivated by user by defining the value of the field \textbf{solver} as zero.
-
- 	When using \textit{NL2SOL} as local solver, the objective function value must be formulated as the square of the sum of differences between the experimental and predicted data (i.e., $\sum_{i=1}^{ndata} (yexp_i-yteor_i)^2$). Besides, a third output argument must be defined in the objective function: a vector containing those residuals (i.e., $R=[(yexp_1-yteor_1), (yexp_2-yteor_2),\ldots,(yexp_{ndata}-yteor_{ndata})$]). In Section \ref{sec:nl2sol_use} an application example illustrates the use of this local method.
-
-
-	\subsubsection{Output}
-	\label{sec:essr_output}
-	\textit{eSSR}'s output is a list (called \textbf{Results} here) containing the following fields:
-	 \begin{itemize}
-	 \item \textbf{Results\$fbest}: Best objective function value found after the optimization.
-	 \item \textbf{Results\$xbest}: Vector providing the best function value found.
-	 \item \textbf{Results\$cpu\_time}: CPU Time (in seconds) consumed in the optimization.
-	\item \textbf{Results\$f}: Vector containing the best objective function value after each iteration.
-	\item \textbf{Results\$x}: Matrix containing the best vector after each iteration.
-	\item \textbf{Results\$time}: Vector containing the CPU time consumed after each iteration.
-	\item \textbf{Results\$neval}: Vector containing the number of evaluations after each iteration.
-	\item \textbf{Results\$numeval}: Total number of function evaluations.
-	\item \textbf{Results\$local\_solutions}: Matrix of local solutions found.
-	\item \textbf{Results\$local\_solutions\_values}: Function values of the local solutions.
-	\item \textbf{Results\$Refset\$x}: Matrix of solutions in the final \textit{Refset} after the optimization.
-	\item \textbf{Results\$Refset\$f}: Objetive function values of the final \textit{Refset} members after the optimization.
-	\item \textbf{Results\$Refset\$fpen}: Penalized objetive function values of the final \textit{Refset} members after the optimization. The values for feasible solutions will coincide with their corresponding \textbf{Results\$Refset\$f} values.
-	\item \textbf{Results\$Refset\$const}: Matrix containing the values of the constraints (those whose bounds are defined in \textbf{problem\$c\_L} and/or \textbf{problem\$c\_U}) for each of the solutions in the final \textit{Refset} after the optimization.
-	\item \textbf{Results\$end\_crit}: Criterion to finish the optimization:
-	\begin{itemize}
-	\item  1: Maximum number of function evaluations achieved.
-	\item  2: Maximum allowed CPU time achieved.
-	\item  3: Value to reach achieved.
-	\end{itemize}
-	\end{itemize}
-
-	The list \textbf{Results} as well as \textbf{problem} and \textbf{opts} are stored and saved in a file called \texttt{eSSR\_report.RData}.
-
-
-	\subsubsection{Guidelines for using \textit{eSSR}}
-	Although \textit{eSSR} default options have been chosen to be robust for a high number of problems, the tuning of some parameters may help increase the efficiency for a particular problem. Here is presented a list of suggestions for parameter choice depending on the type of problem the user has to face.
-
-	\begin{itemize}
-	\item If the problem is likely to be convex, an early local search can find the optimum in short time. For that it is recommended to set the parameter \textbf{opts\$local\_n1 = 1}. Besides, setting \textbf{opts\$local\_n2 = 1} too, the algorithm increases the local search frequency, becoming an ``intelligent'' multistart.
-	\item When the bounds differ in several orders of magnitude, the decision variables indexes may be included in \textbf{log\_var}.
-	\item For problems with discontinuities and/or noise, the local search should either be deactivated or performed by a direct search method. In those cases, activating the option \textbf{opts\$local\_bestx = 1} may help reduce the computation time wasted in useless local searches by performing a local search only when the best solution found has been improved.
-	\item When the function values are very high in absolute value, the weight (\textbf{opts\$weight}) should be increased to be at least 3 orders of magnitude higher than the mean function value of the solutions found.
-	\item When the search space is very big compared to the area in which the global solution may be located, a first investment in diversification may be useful. For that, a high value of \textbf{opts\$ndiverse} can help finding good initial solutions to create the initial \textit{RefSet}. A preliminary run with aggressive options can locate a set of good initial solutions for a subsequent optimization with more robust settings. This aggressive search can be performed by reducing the size of the \textit{RefSet} (\textbf{opts\$dim\_refset}). A more robust search is produced increasing the \textit{RefSet} size.
-	\item If local searches are very time-consuming, their tolerance can be relaxed by reducing the value of \textbf{opts\$local\_tol} not to spend a long time in local solution refinements.
-	\item When there are many local solutions close to the global one, the option \textbf{opts\$local\_balance} should be set close to 0.
-	\end{itemize}
-
-\subsubsection{Extra tool: \textit{essR\_multistart}}
-This tool allows the user to perform a multistart optimization procedure with any of the local solvers implemented in \textit{eSSR} using the same problem declaration. \textit{essR\_multistart} can be invoked within \textit{MEIGO} using the same structure setting the parameter \texttt{algorithm="MULTISTART"} .
-
+ 	\end{itemize}
+ 
+ 	The list \textbf{Results} as well as \textbf{problem} and \textbf{opts} are stored and saved in a file called \texttt{eSSR\_report.RData}.
+ 
+ 
+ 	\subsubsection{Guidelines for using \textit{eSSR}}
+ 	Although \textit{eSSR} default options have been chosen to be robust for a high number of problems, the tuning of some parameters may help increase the efficiency for a particular problem. Here is presented a list of suggestions for parameter choice depending on the type of problem the user has to face.
+ 
+ 	\begin{itemize}
+ 	\item If the problem is likely to be convex, an early local search can find the optimum in short time. For that it is recommended to set the parameter \textbf{opts\$local\_n1 = 1}. Besides, setting \textbf{opts\$local\_n2 = 1} too, the algorithm increases the local search frequency, becoming an ``intelligent'' multistart.
+ 	\item When the bounds differ in several orders of magnitude, the decision variables indexes may be included in \textbf{log\_var}.
+ 	\item For problems with discontinuities and/or noise, the local search should either be deactivated or performed by a direct search method. In those cases, activating the option \textbf{opts\$local\_bestx = 1} may help reduce the computation time wasted in useless local searches by performing a local search only when the best solution found has been improved.
+ 	\item When the function values are very high in absolute value, the weight (\textbf{opts\$weight}) should be increased to be at least 3 orders of magnitude higher than the mean function value of the solutions found.
+ 	\item When the search space is very big compared to the area in which the global solution may be located, a first investment in diversification may be useful. For that, a high value of \textbf{opts\$ndiverse} can help finding good initial solutions to create the initial \textit{RefSet}. A preliminary run with aggressive options can locate a set of good initial solutions for a subsequent optimization with more robust settings. This aggressive search can be performed by reducing the size of the \textit{RefSet} (\textbf{opts\$dim\_refset}). A more robust search is produced increasing the \textit{RefSet} size.
+ 	\item If local searches are very time-consuming, their tolerance can be relaxed by reducing the value of \textbf{opts\$local\_tol} not to spend a long time in local solution refinements.
+ 	\item When there are many local solutions close to the global one, the option \textbf{opts\$local\_balance} should be set close to 0.
+ 	\end{itemize}
+ 
+ \subsubsection{Extra tool: \textit{essR\_multistart}}
+ This tool allows the user to perform a multistart optimization procedure with any of the local solvers implemented in \textit{eSSR} using the same problem declaration. \textit{essR\_multistart} can be invoked within \textit{MEIGO} using the same structure setting the parameter \texttt{algorithm="MULTISTART"} .
+ 
 <<multiStart, eval=FALSE, pgf=TRUE, echo=TRUE>>=
 Results_multistart<-MEIGO(problem,opts,algorithm="MULTISTART",p1,p2,...)
 @
@@ -353,37 +377,37 @@ The list \textbf{opts} has only a few fields compared with \textit{essR}
 		\item \textbf{\$xbest}: Vector providing the best function value.
 		\item \textbf{\$x0}: Matrix containing the vectors used for the multistart optimization.
 		\item \textbf{\$f0}: Vector containing the objective function values of the vectors in \textbf{Results\_multistart\$x0}.
-		\item \textbf{\$func}: Vector containing the objective function values obtained after every local search.
-		\item \textbf{\$xxx}: Matrix containing the vectors provided by the local optimizations.
-		\item \textbf{\$no\_conv}: Matrix containing the initial points that did not converge to any solution.
-		\item \textbf{\$nfuneval}: Matrix containing the number of function evaluations performed in every optimization.
-	\end{itemize}
-
-	The lists \textbf{problem}, \textbf{opts} and \textbf{Results\_multistart} are saved in a file called \texttt{Results\_multistart\$RData}.
-
-
-
-
-\subsection{Examples}
-
-	\label{sec:examples}
-	In this section we will illustrate the usage of \textit{eSSR} within \textit{MEIGO} for solving different instances.
-
-
-	\subsubsection{Unconstrained problem}
-	\begin{eqnarray*}
-	\min\limits_{x}f(x)=4x_1^2 - 2.1x_1^4 + 1/3x_1^6 + x_1x_2 - 4x_2^2 + 4x_2^4
-	\end{eqnarray*}
-
-	\noindent subject to
-	\begin{eqnarray*}
-	-1\leq x_1, x_2\leq 1
-	\end{eqnarray*}
-
-	The objective function is defined in \texttt{ex1.R}. Note that being an unconstrained problem, there is only one output argument, $f$.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 		\item \textbf{\$func}: Vector containing the objective function values obtained after every local search.
+ 		\item \textbf{\$xxx}: Matrix containing the vectors provided by the local optimizations.
+ 		\item \textbf{\$no\_conv}: Matrix containing the initial points that did not converge to any solution.
+ 		\item \textbf{\$nfuneval}: Matrix containing the number of function evaluations performed in every optimization.
+ 	\end{itemize}
+ 
+ 	The lists \textbf{problem}, \textbf{opts} and \textbf{Results\_multistart} are saved in a file called \texttt{Results\_multistart\$RData}.
+ 
+ 
+ 
+ 
+ \subsection{Examples}
+ 
+ 	\label{sec:examples}
+ 	In this section we will illustrate the usage of \textit{eSSR} within \textit{MEIGO} for solving different instances.
+ 
+ 
+ 	\subsubsection{Unconstrained problem}
+ 	\begin{eqnarray*}
+ 	\min\limits_{x}f(x)=4x_1^2 - 2.1x_1^4 + 1/3x_1^6 + x_1x_2 - 4x_2^2 + 4x_2^4
+ 	\end{eqnarray*}
+ 
+ 	\noindent subject to
+ 	\begin{eqnarray*}
+ 	-1\leq x_1, x_2\leq 1
+ 	\end{eqnarray*}
+ 
+ 	The objective function is defined in \texttt{ex1.R}. Note that being an unconstrained problem, there is only one output argument, $f$.
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 <<unConstrainedF, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 ex1 <- function(x){
 y<-4*x[1]*x[1]-2.1*x[1]^4+1/3*x[1]^6+x[1]*x[2]-4*x[2]*x[2]+4*x[2]^4;
@@ -393,16 +417,16 @@ return(y)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \noindent The solver is called in \texttt{main\_ex1.R}. This problem has two known global optima in $x^*=(0.0898, -0.7127)$ and $x^*=(-0.0898, 0.7127)$ with $f(x^*)= -1.03163$.
-
+ 
 	 \noindent Options set:
 	\begin{itemize}
-	\item Maximum number of function evaluations set to 500.
-	\item Maximum number of initial diverse solutions set to 40.
-	\item Local solver chosen: \textit{DHC}.
-	\item Local solver for final refinement: \textit{LBFGSB}.
-	\item Show the information provided by local solvers on screen.
-	\end{itemize}
-
+ 	\item Maximum number of function evaluations set to 500.
+ 	\item Maximum number of initial diverse solutions set to 40.
+ 	\item Local solver chosen: \textit{DHC}.
+ 	\item Local solver for final refinement: \textit{LBFGSB}.
+ 	\item Show the information provided by local solvers on screen.
+ 	\end{itemize}
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 <<unConstrainedSolve, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 #=========================
@@ -418,7 +442,7 @@ local_finish='LBFGSB', local_iterprint=1)
 Results<-MEIGO(problem,opts,algorithm="ESS");
 @
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+ 
 \subsubsection{Constrained problem}
 
 	\begin{eqnarray*}
@@ -428,7 +452,7 @@ Results<-MEIGO(problem,opts,algorithm="ESS");
 	\noindent subject to
 	\begin{eqnarray*}
 	x_2 \leq 2x_1^4 - 8x_1^3 + 8x_1^2 + 2\\
-	x2 \leq 4x_1^4 - 32x_1^3 + 88x_1^2 - 96x_1 + 36\\
+	x_2 \leq 4x_1^4 - 32x_1^3 + 88x_1^2 - 96x_1 + 36\\
 	0\leq x_1\leq 3\\
 	0\leq x_2\leq 4\\
 	\end{eqnarray*}
@@ -456,8 +480,8 @@ return(list(F=F,g=g))
 	\item Maximum number of function evaluations set to 750.
 	\item Increase frequency of local solver calls. The first time the solver is called after 2 iterations. From that moment, the local solver will be called every 3 iterations.
 	\end{itemize}
-
-
+ 
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 <<ex2Solve, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 #=========================
@@ -469,7 +493,7 @@ opts<-list(maxeval=750, local_solver="DHC", local_n1=2, local_n2=3)
 #========================
 #END OF PROBLEM SPECIFICATIONS
 # ========================
-
+ 
 Results<-MEIGO(problem,opts,algorithm="ESS");
 @
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -510,7 +534,7 @@ f=-x[4];
 }
 @
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+ 
 
 \noindent The solver is called in \texttt{main\_ex3.R}. The global optimum for this problem is located in $x^*=[0.77152, 0.516994, 0.204189, 0.388811, 3.0355, 5.0973]$ with $f(x^*)= -0.388811$.
 
@@ -521,11 +545,11 @@ f=-x[4];
 	\item Maximum computation time set to 5 seconds.
 	\item Local solver chosen: \textit{solnp}. It requires the R packages \textit{Rsonlp} and \textit{truncnorm}.
 	\item Parameters $k_1,\ldots, k_4$ are passed to the main routine as input arguments.
-	\end{itemize}
+ 	\end{itemize}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-<<ex2Solve3, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
+<<ex2Solve3, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide', warning=FALSE>>=
 #=========================
 #PROBLEM SPECIFICATIONS
 #=========================
@@ -542,8 +566,8 @@ k4=0.9*k3;
 Results<-MEIGO(problem,opts,algorithm="ESS",k1,k2,k3,k4);
 @
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
+ 
+ 
 	\subsubsection{Mixed integer problem}
 	\begin{eqnarray*}
 	\min\limits_{x}f(x)=x_2^2 + x_3^2 + 2x_1^2 + x_4^2 - 5x_2 - 5x_3 - 21x_1 + 7x_4
@@ -595,104 +619,107 @@ Results<-MEIGO(problem,opts,algorithm="ESS");
 @
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \subsubsection{Dynamic parameter estimation problem using \textit{NL2SOL}}
- 	\label{sec:nl2sol_use}
 
- 	Here we will illustrate the use of \textit{eSSR} within \textit{MEIGO} using \textit{NL2SOL} as local solver. In particular, the problem considered is the isomerization of $\alpha$-pinene \cite{Rodriguez-Fernandez_et_al:06b}.
-
-	\begin{eqnarray*}
-	\min\limits_{p}J=\sum_{j=1}^5 \sum_{i=1}^8 (y_j(p,t_i)-\tilde{y}_{ji})^2
-	\end{eqnarray*}
-
-	\noindent subject to the system dynamics
-	\begin{eqnarray*}
-	\frac{dy_1}{dt} & = & -(p_1+p_2) y_1 \\
-	\frac{dy_2}{dt} & = & p_1 y_1 \\
-	\frac{dy_3}{dt} & = & p_2 y_1 - (p_3+p_4) y_3 + p_5 y_5 \\
-	\frac{dy_4}{dt} & = & p_3 y_3 \\
-	\frac{dy_5}{dt} & = & p_4 y_3 - p_5 y_5
-	\end{eqnarray*}
-
-	\noindent and subject to parameter bounds
-	\begin{eqnarray*}
-	0 \leq x_i \leq 1 \quad \forall i \in [1,\ldots, 5]
-	\end{eqnarray*}
-
-	In order to use \textit{NL2SOL} as local solver, in the script \texttt{ex5.R} there must be three output arguments: apart from the objective function and the constraints (empty in this case), a vector $R$ containing the squares of the residuals must be defined.
-	Please note that the library \textit{deSolve} must be loaded in order to use the ODE integrator \textit{lsodes}.
-
-<<ex5f, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
-	ex5<-function(x,texp,yexp){
-		yini<-c(100, 0, 0, 0 ,0);
-		times<-texp;
-		out   <- lsodes(yini, times, ex5_dynamics, parms = x)
-
-		tout<-out[,1];
-		yout<-out[,-1];
-		J <- sum((yout-yexp)^2);
-		g<-0;
-		residuals<-(yout-yexp);
-
-		return(list(J,g,residuals))
-	}
-	#***************************************************
-	#Function of the dynamic system
-	ex5_dynamics<-function(t,y,p){
-	  dy<-rep(0,5)
-
-	  dy[1]<--(p[1]+p[2])*y[1];
-	  dy[2]<-p[1]*y[1];
-	  dy[3]<-p[2]*y[1]-(p[3]+p[4])*y[3]+p[5]*y[5];
-	  dy[4]<-p[3]*y[3];
-	  dy[5]<-p[4]*y[3]-p[5]*y[5];
-	  return(list(dy))
-	}
-	#***************************************************
-@
-
-
-	\noindent The solver is called in \texttt{main\_ex5.R}. The global optimum for this problem is located in $\mathbf{p^*}=[5.93\cdot 10^{-5}, 2.96\cdot 10^{-5}, 2.0\cdot 10^{-5}, 2.75\cdot 10^{-4}, 4.00\cdot 10^{-5}]$, with $f(\mathbf{p^*})=19.88$.
-
-	\noindent Options set:
-	\begin{itemize}
-	\item An initial point is specified.
-	\item Maximum number of evaluations is 1000.
-	\item All the variables are declared as \textit{log\_var}.
-	\item We choose the \textit{NL2SOL} local solver.
-	\item Save results in a file after every iteration.
-	\end{itemize}
-
-
-<<ex5Solve, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide', warning=FALSE, message=FALSE>>=
-	#=======================
-	#PROBLEM SPECIFICATIONS
-	#=======================
-	problem<-list(f="ex5", x_L=rep(0.01,5), x_U=rep(1,5), x_0=rep(0.1,5))
-	opts<-list(maxeval=1000, log_var=1:5,
-	local_solver='NL2SOL', inter_save=1)
-	#========================
-	#END OF PROBLEM SPECIFICATIONS
-	#=======================
-#time intervals
-
-texp<-c(0, 1230, 3060, 4920, 7800,
-	10680, 15030, 22620, 36420)
-
-#Distribution of species concentration
-#	     y(1)    y(2)    y(3)    y(4)    y(5)
-
-yexp<-rbind(c(100.0, 0.0, 0.0, 0.0, 0.0),
-	c(88.35, 7.3, 2.3, 0.4, 1.75),
-	c( 76.4  , 15.6,    4.5 ,   0.7 ,   2.8),
-	c(65.1 ,   23.1  ,   5.3 ,    1.1 ,    5.8),
-	c(50.4  ,  32.9   ,  6.0   ,  1.5   ,  9.3),
-	c(37.5  ,  42.7 ,    6.0 ,    1.9  ,  12.0),
-	c(25.9  ,  49.1  ,   5.9  ,   2.2 ,   17.0),
-	c( 14.0  ,  57.4    , 5.1  ,   2.6   , 21.0),
-	c(4.5 ,   63.1  ,   3.8   ,  2.9  ,  25.7));
-
-	Results<-MEIGO(problem,opts,algorithm="ESS",texp,yexp);
-@
+%RECOVER THIS SECTION WHEN THE NL2SOL ISSUE IS SOLVED
+% 
+% \subsubsection{Dynamic parameter estimation problem using \textit{NL2SOL}}
+% 	\label{sec:nl2sol_use}
+% 
+% 	Here we will illustrate the use of \textit{eSSR} within \textit{MEIGO} using \textit{NL2SOL} as local solver. In particular, the problem considered is the isomerization of $\alpha$-pinene \cite{Rodriguez-Fernandez_et_al:06b}.
+% 
+% 	\begin{eqnarray*}
+% 	\min\limits_{p}J=\sum_{j=1}^5 \sum_{i=1}^8 (y_j(p,t_i)-\tilde{y}_{ji})^2
+% 	\end{eqnarray*}
+% 
+% 	\noindent subject to the system dynamics
+% 	\begin{eqnarray*}
+% 	\frac{dy_1}{dt} & = & -(p_1+p_2) y_1 \\
+% 	\frac{dy_2}{dt} & = & p_1 y_1 \\
+% 	\frac{dy_3}{dt} & = & p_2 y_1 - (p_3+p_4) y_3 + p_5 y_5 \\
+% 	\frac{dy_4}{dt} & = & p_3 y_3 \\
+% 	\frac{dy_5}{dt} & = & p_4 y_3 - p_5 y_5
+% 	\end{eqnarray*}
+% 
+% 	\noindent and subject to parameter bounds
+% 	\begin{eqnarray*}
+% 	0 \leq x_i \leq 1 \quad \forall i \in [1,\ldots, 5]
+% 	\end{eqnarray*}
+% 
+%  	In order to use \textit{NL2SOL} as local solver, in the script \texttt{ex5.R} there must be three output arguments: apart from the objective function and the constraints (empty in this case), a vector $R$ containing the squares of the residuals must be defined.
+%  	Please note that the library \textit{deSolve} must be loaded in order to use the ODE integrator \textit{lsodes}.
+%  
+% <<ex5f, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
+% 	ex5<-function(x,texp,yexp){
+% 		yini<-c(100, 0, 0, 0 ,0);
+% 		times<-texp;
+% 		out   <- lsodes(yini, times, ex5_dynamics, parms = x)
+% 
+% 		tout<-out[,1];
+% 		yout<-out[,-1];
+% 		J <- sum((yout-yexp)^2);
+% 		g<-0;
+% 		residuals<-(yout-yexp);
+% 
+% 		return(list(J,g,residuals))
+% 	}
+% 	#***************************************************
+% 	#Function of the dynamic system
+% 	ex5_dynamics<-function(t,y,p){
+% 	  dy<-rep(0,5)
+% 
+% 	  dy[1]<--(p[1]+p[2])*y[1];
+% 	  dy[2]<-p[1]*y[1];
+% 	  dy[3]<-p[2]*y[1]-(p[3]+p[4])*y[3]+p[5]*y[5];
+% 	  dy[4]<-p[3]*y[3];
+% 	  dy[5]<-p[4]*y[3]-p[5]*y[5];
+% 	  return(list(dy))
+% 	}
+% 	#***************************************************
+% @
+% 
+% 
+%  	\noindent The solver is called in \texttt{main\_ex5.R}. The global optimum for this problem is located in $\mathbf{p^*}=[5.93\cdot 10^{-5}, 2.96\cdot 10^{-5}, 2.0\cdot 10^{-5}, 2.75\cdot 10^{-4}, 4.00\cdot 10^{-5}]$, with $f(\mathbf{p^*})=19.88$.
+% 
+% 	\noindent Options set:
+% 	\begin{itemize}
+% 	\item An initial point is specified.
+% 	\item Maximum number of evaluations is 1000.
+% 	\item All the variables are declared as \textit{log\_var}.
+% 	\item We choose the \textit{NL2SOL} local solver.
+% 	\item Save results in a file after every iteration.
+% 	\end{itemize}
+%  
+% 
+% <<ex5Solve, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide', warning=FALSE, message=FALSE>>=
+% 	#=======================
+% 	#PROBLEM SPECIFICATIONS
+% 	#=======================
+% 	problem<-list(f="ex5", x_L=rep(0.01,5), x_U=rep(1,5), x_0=rep(0.1,5))
+% 	opts<-list(maxeval=1000, log_var=1:5,
+% 	local_solver='NL2SOL', inter_save=1)
+% 	#========================
+% 	#END OF PROBLEM SPECIFICATIONS
+% 	#=======================
+% #time intervals
+% 
+% texp<-c(0, 1230, 3060, 4920, 7800,
+% 	10680, 15030, 22620, 36420)
+% 
+% #Distribution of species concentration
+% #	     y(1)    y(2)    y(3)    y(4)    y(5)
+% 
+% yexp<-rbind(c(100.0, 0.0, 0.0, 0.0, 0.0),
+% 	c(88.35, 7.3, 2.3, 0.4, 1.75),
+% 	c( 76.4  , 15.6,    4.5 ,   0.7 ,   2.8),
+% 	c(65.1 ,   23.1  ,   5.3 ,    1.1 ,    5.8),
+% 	c(50.4  ,  32.9   ,  6.0   ,  1.5   ,  9.3),
+% 	c(37.5  ,  42.7 ,    6.0 ,    1.9  ,  12.0),
+% 	c(25.9  ,  49.1  ,   5.9  ,   2.2 ,   17.0),
+% 	c( 14.0  ,  57.4    , 5.1  ,   2.6   , 21.0),
+% 	c(4.5 ,   63.1  ,   3.8   ,  2.9  ,  25.7));
+% 
+% 	Results<-MEIGO(problem,opts,algorithm="ESS",texp,yexp);
+% @
 
 \subsubsection{\textit{essR\_multistart} application}
 An application of \textit{essR\_multistart} within \textit{MEIGO} on the problem \textit{ex3} using \textit{solnp}
@@ -704,11 +731,11 @@ as local solver is presented in the script \texttt{main\_multistart\_ex3.R}. The
 #PROBLEM SPECIFICATIONS
 #=========================
 problem<-list(f="ex3",x_L=rep(0,6),x_U=c(rep(1,4),16,16),
- neq=4, c_L=-Inf, c_U=4)
+neq=4, c_L=-Inf, c_U=4)
 opts<-list(ndiverse=10, local_solver='SOLNP', local_tol=3)
 #=========================
 #END OF PROBLEM SPECIFICATIONS
-#=========================
+ #=========================
 k1=0.09755988;
 k3=0.0391908;
 k2=0.99*k1;
@@ -721,7 +748,7 @@ Results<-MEIGO(problem,opts,algorithm="multistart",k1,k2,k3,k4);
 
 
 	\textit{VNSR} is an R implementation of the Variable Neighbourhood Search (VNS) metaheuristic which is part of the \textit{MEIGO} toolbox for global optimization in bioinformatics. VNS was first proposed by \cite{Mladenovic_Hansen:97} for solving combinatorial and/or global optimization problems. The method guides a trial solution to search for an optimum in a certain area. After this optimum is located, the trial solution is perturbed to start searching in a new area (or neighbourhood). New neighbourhoods are defined following a distance criterion in order to achieve a good diversity in the search. Different variants of the method have been published in recent years in order to adapt it to different types of problems \cite{Hansen_Mladenovic_Moreno-Perez:10}. VNSR implements some of this variants by means of different tunning parameters.
-
+ 
 	\textit{VNSR} seeks the global minimum of integer programming (IP) problems specified by
 
 	\begin{eqnarray*}
@@ -754,8 +781,6 @@ Results<-MEIGO(problem,opts,algorithm="multistart",k1,k2,k3,k4);
 
 			A list named \textbf{problem} containing the following fields must be defined for running \textit{VNSR}:
 
-			%In order to solve an optimization problem with \textit{eSSR}, an object (named \textbf{problem} here) containing the following fields must be defined:
-
 			 \begin{itemize}
 				\item \textbf{f}: String containing the name of the objective function.
 				\item \textbf{x\_L}: Vector containing the lower bounds of the variables.
@@ -771,7 +796,7 @@ Results<-MEIGO(problem,opts,algorithm="multistart",k1,k2,k3,k4);
 	 \begin{itemize}
 		\item \textbf{maxeval}: Maximum number of function evaluations (default: 1000).
 		\item \textbf{maxtime}: Maximum CPU time in seconds (default: 60).
-%		\item \textbf{iterprint}: Print information on the screen after each iteration. 0: Deactivated; 1: Activated (default: 1).
+	\item \textbf{iterprint}: Print information on the screen after each iteration. 0: Deactivated; 1: Activated (default: 1).
 		\item \textbf{maxdist}: Percentage of the problem dimension which will be perturbed in the furthest neighborhood (vary between 0-1, default: 0.5).
 		\item \textbf{use\_local}: Uses local search (1) or not (0). Default:1.
 	\end{itemize}
@@ -789,12 +814,12 @@ Results<-MEIGO(problem,opts,algorithm="multistart",k1,k2,k3,k4);
 	\label{sec:vnsr_output}
 	\textit{VNSR} output is a list (called \textbf{Results} here) containing the following fields:
 	 \begin{itemize}
-	 \item \textbf{Results\$fbest}: Best objective function value found after the optimization.
+ 	 \item \textbf{Results\$fbest}: Best objective function value found after the optimization.
 	 \item \textbf{Results\$xbest}: Vector providing the best function value found.
 	 \item \textbf{Results\$cpu\_time}: CPU Time (in seconds) consumed in the optimization.
-	\item \textbf{Results\$func}: Vector containing the best objective function value after each improvement.
-	\item \textbf{Results\$x}: Matrix containing the best vector after each improvement (in rows).
-	\item \textbf{Results\$time}: Vector containing the CPU time consumed after each improvement.
+	\item \textbf{Results\$func}: Vector containing the best objective function value after each improvement
+	 \item \textbf{Results\$x}: Matrix containing the best vector after each improvement (in rows).
+   \item \textbf{Results\$time}: Vector containing the CPU time consumed after each improvement.
 	\item \textbf{Results\$neval}: Vector containing the number of evaluations after each improvement.
 	\item \textbf{Results\$numeval}: Total number of function evaluations.
 	\end{itemize}
@@ -815,9 +840,9 @@ Results<-MEIGO(problem,opts,algorithm="multistart",k1,k2,k3,k4);
 	\subsection{Application example}
 
 
-	To illustrate the use of \textit{VNSR} we choose the 10 dimensional Rosenbrock function with integer decision variables as an example.
-	The code of the Rosenbrock function is available inside the installation directory of the \textit{MEIGO} package, under the benchmarks folder. Source the objective function and assign it to the problem list.
-
+ 	To illustrate the use of \textit{VNSR} we choose the 10 dimensional Rosenbrock function with integer decision variables as an example.
+ 	The code of the Rosenbrock function is available inside the installation directory of the \textit{MEIGO} package, under the benchmarks folder. Source the objective function and assign it to the problem list.
+ 
 <<sourceRosen10, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 rosen10<-function(x){
 		f<-0;
@@ -831,7 +856,7 @@ rosen10<-function(x){
 	nvar<-10;
 
 @
-
+ 
 Define the problem settings:
 <<rosen10settings, eval=TRUE, pgf=TRUE, echo=TRUE,results='hide'>>=
 problem<-list(f="rosen10", x_L=rep(-5,nvar), x_U=rep(1,nvar))
@@ -870,22 +895,22 @@ Call MEIGO:
 
 			\begin{itemize}
 			\item \textbf{Socket-connection}: 	Socket-connection is the simplest option and is what we recommend for a quick-start. Socket connections are made over TCP/IP and do nor
-								require the installation of any additional software. If working in a cluster you will have to specify the address of the machines you want connect to.
-								It might also be worth to take a look at \url{http://www.imbi.uni-freiburg.de/parallel/#passwordless} since you will most likely need to configure the
-								ssh-access in order not to be asked for a password each time you initialize a connection.
-
-								If you are running in a local machine (preferentially but no necessarily with multiple cores) the R instances will be launched in your machine. More details
-								on how to configure this options will be provided further ahead in this manual.
-
-			\item \textbf{MPI}: The Message Parsing Interface option depends on your ability to install and use the package Rmpi in your cluster. Detailed information on how to this can be found at\\ \url{http://www.stats.uwo.ca/faculty/yu/Rmpi/}.
-			\end{itemize}
-
+ 								require the installation of any additional software. If working in a cluster you will have to specify the address of the machines you want connect to.
+ 								It might also be worth to take a look at \url{http://www.imbi.uni-freiburg.de/parallel/#passwordless} since you will most likely need to configure the
+ 								ssh-access in order not to be asked for a password each time you initialize a connection.
+ 
+ 								If you are running in a local machine (preferentially but no necessarily with multiple cores) the R instances will be launched in your machine. More details
+ 								on how to configure this options will be provided further ahead in this manual.
+ 
+ 			\item \textbf{MPI}: The Message Parsing Interface option depends on your ability to install and use the package Rmpi in your cluster. Detailed information on how to this can be found at\\ \url{http://www.stats.uwo.ca/faculty/yu/Rmpi/}.
+ 			\end{itemize}
+ 
 	\subsection{Usage}
 
 	\subsubsection{Options}
 
-	The corresponding cooperative method for either of the algorithms included in \textit{MEIGO} (i.e., \textit{CeSSR} and \textit{CeVNSR}), is invoked using the same problem declaration and options (see sections  \ref{sec:ess_usage} and \ref{sec:vns_usage}). To select the cooperative version of each method, the field \texttt{algorithm} must contain either \texttt{CeSSR} or \texttt{CeVNSR}. The list \texttt{opts} must now be a vector for each field instead of a scalar. For example, if we want to use \textit{CeSSR} with 3 different threads, we would define the options of maximum number of evaluations as
-
+ 	The corresponding cooperative method for either of the algorithms included in \textit{MEIGO} (i.e., \textit{CeSSR} and \textit{CeVNSR}), is invoked using the same problem declaration and options (see sections  \ref{sec:ess_usage} and \ref{sec:vns_usage}). To select the cooperative version of each method, the field \texttt{algorithm} must contain either \texttt{CeSSR} or \texttt{CeVNSR}. The list \texttt{opts} must now be a vector for each field instead of a scalar. For example, if we want to use \textit{CeSSR} with 3 different threads, we would define the options of maximum number of evaluations as
+ 
 <<options, eval=FALSE, pgf=TRUE, echo=TRUE>>=
 
 opts=list();
@@ -898,46 +923,42 @@ The first \textit{n} fields should contain the options for
 the \textit{n} threads that are going to be used.
 The field \textit{n+1} should be named hosts. opts\$hosts should be a vector containing as many elements
 	as threads you want to launch in parallel. In case you are using the 'SOCKS' mechanism from snowfall each element of this vector should be a string with the address of the machines where you want to launch the optimization. For instance, opts\$hosts('node1','node1','node2','node2','node5','localhost','127.0.0.1') will use 7 threads for each iteration;
-	two at 'node1', two at 'node2', one in 'node5' and two in your local machine ('localhost' and '127.0.0.1').
-
-	Additionally, a set of extra options must be defined in the list \texttt{opts}. These extra options are the following:
-
-	\begin{itemize}
-		\item \textbf{ce\_maxeval}: The maximum number of evaluations. By default this is set to infinity leaving
-					the stopping criterion to the number of iterations.
-
-				\item \textbf{ce\_maxtime}: The maximum time to be spent in the cooperative search. By default this is set to infinity leaving the stopping criterion to the number of cooperative iterations. Notice that although you can specify its value, this stopping criterion will only be checked at the end of each iteration. Therefore if a cooperative iteration takes long it is expected that the cooperative method takes a bit longer to finish than what you have specified.
-
-			 	\item \textbf{ce\_niter}: The number of times the threads will stop to exchange information. The default is 1, meaning that there will be an initial iteration (iteration 0) where the threads will stop to exchange the best solutions found and start a new optimization round. This value can also be set to 0 meaning that you will run multiple \textit{eSSR} or \textit{VNSR} runs in parallel without any exchange of information from the threads.
-
-	 			\item \textbf{ce\_isparallel}: By default this is set to true. Otherwise each thread will be executed sequentially.
+ 	two at 'node1', two at 'node2', one in 'node5' and two in your local machine ('localhost' and '127.0.0.1').
+ 
+ 	Additionally, a set of extra options must be defined in the list \texttt{opts}. These extra options are the following:
+ 
+ 	\begin{itemize}
+ 		\item \textbf{ce\_maxeval}: The maximum number of evaluations. By default this is set to infinity leaving the stopping criterion to the number of iterations.
+ 				\item \textbf{ce\_maxtime}: The maximum time to be spent in the cooperative search. By default this is set to infinity leaving the stopping criterion to the number of cooperative iterations. Notice that although you can specify its value, this stopping criterion will only be checked at the end of each iteration. Therefore if a cooperative iteration takes long it is expected that the cooperative method takes a bit longer to finish than what you have specified.
+ 			 	\item \textbf{ce\_niter}: The number of times the threads will stop to exchange information. The default is 1, meaning that there will be an initial iteration (iteration 0) where the threads will stop to exchange the best solutions found and start a new optimization round. This value can also be set to 0 meaning that you will run multiple \textit{eSSR} or \textit{VNSR} runs in parallel without any exchange of information from the threads.
+ 	 			\item \textbf{ce\_isparallel}: By default this is set to true. Otherwise each thread will be executed sequentially.
 
 				\item \textbf{ce\_type}: The type of mechanism used for parallelization. The 'SOCKS' mechanism is
-				incorporated through the snowfall package), In this case, it is important to define the addresses of
-				\texttt{opts\$hosts} properly. Additionally, the 'MPI' (from 'snowfall') is also available.
-
-	%			\item \textbf{global\_save\_list}: This field should contain the names of the global variables to be exported.
-	\end{itemize}
-
-
-		\subsubsection{Output}
-
-			The \textit{CeSSR} /\textit{CeVNSR} output is a list containing the following fields:
-
-			 \begin{itemize}
-
+ 				incorporated through the snowfall package), In this case, it is important to define the addresses of
+ 				\texttt{opts\$hosts} properly. Additionally, the 'MPI' (from 'snowfall') is also available.
+ 
+ 	%			\item \textbf{global\_save\_list}: This field should contain the names of the global variables to be exported.
+ 	\end{itemize}
+ 
+ 
+ 		\subsubsection{Output}
+ 
+ 			The \textit{CeSSR} /\textit{CeVNSR} output is a list containing the following fields:
+ 
+		 \begin{itemize}
+ 
 				\item \textbf{f\_mean}: Contains the mean value of the objective function at each iteration.
-
-				 \item \textbf{fbest}: Contains the lowest value found by the objective function at each iteration.
-
-				 \item \textbf{iteration\_res}: Contains the results returned by each \textit{CeSSR} / \textit{VNSR}  thread at the end of an iteration. Check sections \ref{sec:essr_output} and \ref{sec:vnsr_output} for more information.
-
-				\item \textbf{numeval}: The number of evaluations at the end of each iteration.
-
-				 \item \textbf{time}: The computation time at the end of each iteration.
-
-			\end{itemize}
-
+ 
+ 				 \item \textbf{fbest}: Contains the lowest value found by the objective function at each iteration.
+ 
+ 				 \item \textbf{iteration\_res}: Contains the results returned by each \textit{CeSSR} / \textit{VNSR}  thread at the end of an iteration. Check sections \ref{sec:essr_output} and \ref{sec:vnsr_output} for more information.
+ 
+ 				\item \textbf{numeval}: The number of evaluations at the end of each iteration.
+ 
+ 				 \item \textbf{time}: The computation time at the end of each iteration.
+ 
+ 			\end{itemize}
+ 
 
 
 	\subsection{\textit{CeSSR} application example}
@@ -1085,9 +1106,9 @@ uses a technique called multivariate polynomial interpolation \cite{krumsiek2010
 to transform a logic model into a system of ordinary differential equations. The final goal of
 the package is to calibrate such model (its parameters) by means of optimization strategies where
 the objective is to minimize the squared difference between the model predictions and the experimental data.
-
-In this example, we start by loading the package and the necessary model and experimental data:
-
+ 
+ In this example, we start by loading the package and the necessary model and experimental data:
+ 
 <<label=CNORodeExample_fig, eval=FALSE, echo=TRUE,results='hide'>>=
 library(MEIGOR);
 library(CNORode);
@@ -1095,7 +1116,7 @@ data("CNORodeExample",package="MEIGOR");
 plotCNOlist(cnolist);
 @
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \begin{center}
 
 <<label=CNORodeExample_fig_plot,include=TRUE,echo=FALSE,results='hide'>>=
@@ -1125,7 +1146,7 @@ In order to visualize the logic model we can use the CellNOptR package
 plotModel(model, cnolist);
 @
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \begin{center}
 
 <<label=CNORodeExample_fig_model_plot,include=TRUE,echo=FALSE,results='hide'>>=
@@ -1160,7 +1181,7 @@ simData=plotLBodeFitness(cnolist, model,initial_pars,
 @
 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \begin{center}
 
 <<label=CNORodeExample_initial_plot,include=TRUE,echo=FALSE,results='hide'>>=
@@ -1231,7 +1252,7 @@ simData=plotLBodeFitness(cnolist, model,opt_pars,
 @
 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \begin{center}
 
 <<label=CNORodeExample_opt_plot,include=TRUE,echo=FALSE,results='hide'>>=
@@ -1249,7 +1270,7 @@ simData=plotLBodeFitness(cnolist, model,opt_pars,
 \clearpage
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \subsection{Using VNS to optimize logic models}
 
  In \cite{saez2009discrete} Saez-Rodriguez and colleagues show how to use a genetic algorithm
@@ -1280,7 +1301,7 @@ cnolist=CNOlist(cnolist);
 plotCNOlist(cnolist)
 @
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \begin{center}
 
 <<label=CellNOptR_example_cnolist,include=TRUE,echo=FALSE,results='hide'>>=
@@ -1303,7 +1324,7 @@ stimuli and inhibitors.}
 
 The original prior-knowledge network (a signed directed graph) can be expanded into an
 hypergraph containing all possible Boolean gates. CellNOptR can then be used to
-visualize the obtained network (see figure ~\ref{fig:CNORode_plot_model}).
+visualize the obtained network (see figure ~\ref{fig:CNORode_plot_model2}).
 
 <<label=CellNOptR_example_fig_model, eval=FALSE, pgf=TRUE, echo=TRUE,results='hide'>>=
 model <- preprocessing(cnolist, model,
@@ -1311,7 +1332,7 @@ model <- preprocessing(cnolist, model,
 plotModel(model, cnolist);
 @
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \begin{center}
 
 <<label=CellNOptR_example_fig_model_plot,include=TRUE,echo=FALSE,results='hide', warning=FALSE>>=
@@ -1323,7 +1344,7 @@ plotModel(model, cnolist);
 \caption{The expanded model for the CellNOptR (Boolean logic) example. This representation
 contains all possible logic gates where each binary decision variable corrersponds to an
 hyperedge/logical disjunction.}
-\label{fig:CNORode_plot_model}
+\label{fig:CNORode_plot_model2}
 \end{figure}
 
 \clearpage
@@ -1371,7 +1392,7 @@ Once the optimization procedure is finished we plot the obtained solution
 optModel=cutModel(model,Results$xbest);
 plotModel(optModel,cnolist);
 @
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \begin{center}
 <<label=CellNOptR_example_plot_optModel_fig,include=TRUE,echo=FALSE,results='hide'>>=
 optModel=cutModel(model,Results$xbest);
@@ -1387,7 +1408,11 @@ plotModel(optModel,cnolist);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\printbibliography
+%\printbibliography
 
+\bibliographystyle{abbrvnat}
+\bibliography{MEIGO_refs}
+
+% \bibliography{mybib}
 
 \end{document}
